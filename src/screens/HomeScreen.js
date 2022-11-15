@@ -1,27 +1,24 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
 import {
-  collection,
-  doc,
-  setDoc,
-  snapshotEqual,
-  query,
-  where,
-  getDocs,
-} from "firebase/firestore";
-import { db } from "../../firebase";
+  KeyboardAvoidingView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  TextInput,
+} from "react-native";
+import React from "react";
 
-const Home = () => {
-  db.collection("activity")
-    .doc("VflsyLTv77AmNXj5VRXw")
-    .get()
-    .then((singleActivity) => {
-      console.log(singleActivity.data());
-    });
+const Home = ({ navigation }) => {
+  const goToProfile = () => {
+    navigation.navigate("ProfileScreen");
+  };
 
   return (
     <View>
       <Text style={{ fontSize: 100 }}>Home</Text>
+      <TouchableOpacity onPress={goToProfile} style={styles.button}>
+        <Text style={styles.buttonText}>Profile</Text>
+      </TouchableOpacity>
     </View>
   );
 };
