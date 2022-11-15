@@ -62,6 +62,7 @@ const styles = StyleSheet.create({
   border: {
     borderWidth: 5,
     marginTop: 40,
+    backgroundColor: "#271F29",
   },
 
   card: {
