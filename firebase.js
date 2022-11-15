@@ -1,19 +1,19 @@
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/firestore';
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyCfiRNa7TURPGBoKk05mzT0LBOeAHJT_aE',
+  apiKey: "AIzaSyCfiRNa7TURPGBoKk05mzT0LBOeAHJT_aE",
 
-  authDomain: 'fir-auth-4f282.firebaseapp.com',
+  authDomain: "fir-auth-4f282.firebaseapp.com",
 
-  projectId: 'fir-auth-4f282',
+  projectId: "fir-auth-4f282",
 
-  storageBucket: 'fir-auth-4f282.appspot.com',
+  storageBucket: "fir-auth-4f282.appspot.com",
 
-  messagingSenderId: '705383590288',
+  messagingSenderId: "705383590288",
 
-  appId: '1:705383590288:web:31c5cf9a47faff8bfc6b15',
+  appId: "1:705383590288:web:31c5cf9a47faff8bfc6b15",
 };
 
 let app;
@@ -23,5 +23,6 @@ if (firebase.apps.length === 0) {
   app = firebase.app();
 }
 const auth = firebase.auth();
+const db = app.firestore();
 
-export { auth };
+export { auth, db };
