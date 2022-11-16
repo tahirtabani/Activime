@@ -25,4 +25,4 @@ if (firebase.apps.length === 0) {
 const auth = firebase.auth();
 const db = app.firestore();
 
-export { app, auth, db };
+export { firebase ,app, auth, db };
