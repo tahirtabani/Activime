@@ -5,13 +5,14 @@ import {
   FlatList,
   Pressable,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 
 const Home = () => {
   const [activity, setActivity] = useState([]);
-
+  const [selectedId, setSelectedId] = useState(null);
   const activityRef = db.collection("activity");
 
   useEffect(() => {
@@ -39,18 +40,53 @@ const Home = () => {
       <FlatList
         data={activity}
         numColumns={1}
-        renderItem={({ item }) => (
-          <Pressable style={styles.card}>
-            <View>
-              <Image source={{ uri: item.imageUrl }} style={styles.image} />
-            </View>
-            <View style={styles.cardDetails}>
-              <Text style={{ fontWeight: "bold" }}>{item.title}</Text>
-              <Text>{item.area}</Text>
-              <Text>{item.user}</Text>
-            </View>
-          </Pressable>
-        )}
+        renderItem={({ item }) =>
+          item.id === selectedId ? (
+            <Pressable
+              style={styles.expandedCard}
+              onPress={() => {
+                setSelectedId(item.id);
+                console.log(item.id);
+              }}
+            >
+              <View>
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.expandedImage}
+                />
+              </View>
+              <View style={styles.expandedCardDetails}>
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                <Text>{item.area}</Text>
+                <Text>{item.user}</Text>
+                <Text>{item.description}</Text>
+              </View>
+              <View>
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>Join</Text>
+                </TouchableOpacity>
+              </View>
+            </Pressable>
+          ) : (
+            <Pressable
+              style={styles.card}
+              onPress={() => {
+                setSelectedId(item.id);
+              }}
+            >
+              <View>
+                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+              </View>
+              <View style={styles.cardDetails}>
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                <Text>{item.area}</Text>
+                <Text>{item.user}</Text>
+              </View>
+            </Pressable>
+          )
+        }
+        keyExtractor={(item) => item.id}
+        extraData={selectedId}
       ></FlatList>
     </View>
   );
@@ -66,7 +102,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#B7B5BD",
+    backgroundColor: "#FAEBD7",
     margin: 10,
     borderRadius: 18,
     flexDirection: "row",
@@ -77,13 +113,59 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    aspectRatio: 3 / 2,
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
+  },
+
+  expandedImage: {
+    width: "auto",
+    height: "auto",
+    aspectRatio: 3 / 2,
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
   },
 
   cardDetails: {
     marginLeft: 20,
     justifyContent: "space-evenly",
     flexShrink: 1,
+  },
+
+  cardTitle: {
+    paddingBottom: 15,
+    fontWeight: "bold",
+  },
+
+  expandedCardDetails: {
+    marginLeft: 20,
+    justifyContent: "space-evenly",
+    flexShrink: 1,
+    padding: 12,
+  },
+
+  expandedCard: {
+    backgroundColor: "white",
+    margin: 10,
+    borderRadius: 18,
+    flexDirection: "column",
+    shadowColor: "#000000",
+    elevation: 20,
+    height: "auto",
+  },
+
+  button: {
+    width: "auto",
+    borderWidth: 8,
+    borderColor: "lightcoral",
+    margin: 10,
+    borderRadius: 180,
+    shadowColor: "#000000",
+  },
+
+  buttonText: {
+    fontWeight: "bold",
+    textAlign: 'center',
+    padding: 5,
   },
 });
