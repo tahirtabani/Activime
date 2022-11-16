@@ -5,15 +5,14 @@ import {
   FlatList,
   Pressable,
   Image,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 
 const Home = () => {
   const [activity, setActivity] = useState([]);
-  const [expand, setExpanded] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-
   const activityRef = db.collection("activity");
 
   useEffect(() => {
@@ -36,24 +35,6 @@ const Home = () => {
     });
   }, []);
 
-  // const handlePressOnCard = () => {
-  //   expand === false ? setExpanded(true) : setExpanded(false);
-
-  //   return (
-  //     <Pressable style={styles.expandedCard} onPressOut={handlePressOnCard}>
-  //       <View>
-  //         <Image source={{ uri: activity.imageUrl }} style={styles.image} />
-  //       </View>
-  //       <View style={styles.cardDetails}>
-  //         <Text style={{ fontWeight: "bold" }}>{activity.title}</Text>
-  //         <Text>{activity.area}</Text>
-  //         <Text>{activity.user}</Text>
-  //         <Text>{activity.description}</Text>
-  //       </View>
-  //     </Pressable>
-  //   );
-  // };
-
   return (
     <View style={styles.border}>
       <FlatList
@@ -62,26 +43,34 @@ const Home = () => {
         renderItem={({ item }) =>
           item.id === selectedId ? (
             <Pressable
-              style={styles.card}
-              onPressOut={() => {
+              style={styles.expandedCard}
+              onPress={() => {
                 setSelectedId(item.id);
                 console.log(item.id);
               }}
             >
               <View>
-                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.expandedImage}
+                />
               </View>
-              <View style={styles.cardDetails}>
-                <Text style={{ fontWeight: "bold" }}>{item.title}</Text>
+              <View style={styles.expandedCardDetails}>
+                <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text>{item.area}</Text>
                 <Text>{item.user}</Text>
                 <Text>{item.description}</Text>
+              </View>
+              <View>
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.buttonText}>Join</Text>
+                </TouchableOpacity>
               </View>
             </Pressable>
           ) : (
             <Pressable
               style={styles.card}
-              onPressOut={() => {
+              onPress={() => {
                 setSelectedId(item.id);
               }}
             >
@@ -89,7 +78,7 @@ const Home = () => {
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>
               <View style={styles.cardDetails}>
-                <Text style={{ fontWeight: "bold" }}>{item.title}</Text>
+                <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text>{item.area}</Text>
                 <Text>{item.user}</Text>
               </View>
@@ -113,7 +102,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#B7B5BD",
+    backgroundColor: "#FAEBD7",
     margin: 10,
     borderRadius: 18,
     flexDirection: "row",
@@ -124,8 +113,17 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: 150,
+    aspectRatio: 3 / 2,
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
+  },
+
+  expandedImage: {
+    width: "auto",
+    height: "auto",
+    aspectRatio: 3 / 2,
+    borderTopLeftRadius: 18,
+    borderTopRightRadius: 18,
   },
 
   cardDetails: {
@@ -133,12 +131,41 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     flexShrink: 1,
   },
+
+  cardTitle: {
+    paddingBottom: 15,
+    fontWeight: "bold",
+  },
+
+  expandedCardDetails: {
+    marginLeft: 20,
+    justifyContent: "space-evenly",
+    flexShrink: 1,
+    padding: 12,
+  },
+
   expandedCard: {
-    backgroundColor: "#B7B5BD",
+    backgroundColor: "white",
     margin: 10,
     borderRadius: 18,
-    flexDirection: "row",
+    flexDirection: "column",
     shadowColor: "#000000",
     elevation: 20,
+    height: "auto",
+  },
+
+  button: {
+    width: "auto",
+    borderWidth: 8,
+    borderColor: "lightcoral",
+    margin: 10,
+    borderRadius: 180,
+    shadowColor: "#000000",
+  },
+
+  buttonText: {
+    fontWeight: "bold",
+    textAlign: 'center',
+    padding: 5,
   },
 });
