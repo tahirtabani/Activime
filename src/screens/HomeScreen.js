@@ -10,7 +10,7 @@ import {
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 
-const Home = () => {
+const HomeScreen = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
   const activityRef = db.collection("activity");
@@ -92,7 +92,7 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeScreen;
 
 const styles = StyleSheet.create({
   border: {
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
 
   buttonText: {
     fontWeight: "bold",
-    textAlign: 'center',
+    textAlign: "center",
     padding: 5,
   },
 });
