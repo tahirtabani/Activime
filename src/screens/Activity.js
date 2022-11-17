@@ -7,20 +7,21 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-} from "react-native";
-import { BlurView } from "@react-native-community/blur";
-import React, { useState, useEffect } from "react";
+} from 'react-native';
+import { BlurView } from '@react-native-community/blur';
+import React, { useState, useEffect } from 'react';
 
-const Activity = ({ item }) => {
+const Activity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
   return (
     <View style={styles.blurry}>
       <Modal
-        style={{ content: { backgroundColor: "black" } }}
-        animationType={"fancy"}
+        style={{ content: { backgroundColor: 'black' } }}
+        animationType={'fancy'}
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
+          setSelectedId(null);
           setModalVisible(!modalVisible);
         }}
       >
@@ -53,16 +54,16 @@ const styles = StyleSheet.create({
     blueRadius: 50,
   },
   centeredView: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     marginTop: 22,
     margin: 20,
     borderRadius: 10,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
       height: 2,
@@ -71,15 +72,15 @@ const styles = StyleSheet.create({
   border: {
     borderWidth: 5,
     marginTop: 40,
-    backgroundColor: "#271F29",
+    backgroundColor: '#271F29',
   },
 
   card: {
-    backgroundColor: "black",
+    backgroundColor: 'black',
     margin: 10,
     borderRadius: 18,
-    flexDirection: "row",
-    shadowColor: "#000000",
+    flexDirection: 'row',
+    shadowColor: '#000000',
     elevation: 20,
   },
 
@@ -92,8 +93,8 @@ const styles = StyleSheet.create({
   },
 
   expandedImage: {
-    width: "auto",
-    height: "auto",
+    width: 'auto',
+    height: 'auto',
     aspectRatio: 3 / 2,
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
@@ -101,44 +102,44 @@ const styles = StyleSheet.create({
 
   cardDetails: {
     marginLeft: 20,
-    justifyContent: "space-evenly",
+    justifyContent: 'space-evenly',
     flexShrink: 1,
   },
 
   cardTitle: {
     paddingBottom: 15,
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
 
   expandedCardDetails: {
     marginLeft: 20,
-    justifyContent: "space-evenly",
+    justifyContent: 'space-evenly',
     flexShrink: 1,
     padding: 12,
   },
 
   expandedCard: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     margin: 10,
     borderRadius: 18,
-    flexDirection: "column",
-    shadowColor: "#000000",
+    flexDirection: 'column',
+    shadowColor: '#000000',
     elevation: 20,
-    height: "auto",
+    height: 'auto',
   },
 
   button: {
-    width: "auto",
+    width: 'auto',
     borderWidth: 8,
-    borderColor: "lightcoral",
+    borderColor: 'lightcoral',
     margin: 10,
     borderRadius: 180,
-    shadowColor: "#000000",
+    shadowColor: '#000000',
   },
 
   buttonText: {
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     padding: 5,
   },
 });
