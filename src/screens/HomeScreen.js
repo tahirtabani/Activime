@@ -13,20 +13,9 @@ import { db } from "../../firebase";
 import ActivityList from "./ActivityList";
 
 const Home = () => {
-  const [modalVisible, setModalVisible] = useState(true);
   return (
     <View>
-      <Modal
-        animationType={"fancy"}
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
-          alert("Modal has been closed.");
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <ActivityList />
-      </Modal>
+      <ActivityList />
     </View>
   );
 };

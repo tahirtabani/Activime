@@ -15,7 +15,6 @@ import Activity from "./Activity";
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
-  const [modalVisible, setModalVisible] = useState(false);
 
   const activityRef = db.collection("activity");
 
@@ -49,11 +48,11 @@ const ActivityList = () => {
             <Pressable
               style={styles.card}
               onPress={() => {
-                setSelectedId(item.id);
+                setSelectedId(null);
                 console.log(item.id);
               }}
             >
-              <Activity item={item} />
+              <Activity item={item} setSelectedId={setSelectedId} />
               <View>
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>

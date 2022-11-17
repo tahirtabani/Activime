@@ -8,32 +8,35 @@ import {
   TouchableOpacity,
   Modal,
 } from "react-native";
-import { BlurView } from "@react-native-community/blur";
+import { useFonts } from "expo-font";
 import React, { useState, useEffect } from "react";
 
-const Activity = ({ item }) => {
+const Activity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
+  const [fontsLoaded] = useFonts({
+    creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
+  });
   return (
-    <View style={styles.blurry}>
+    <View>
       <Modal
-        style={{ content: { backgroundColor: "black" } }}
-        animationType={"fancy"}
-        transparent={true}
+        animationType={"fade"}
+        transparent={false}
         visible={modalVisible}
         onRequestClose={() => {
+          setSelectedId(null);
           setModalVisible(!modalVisible);
         }}
       >
-        <View style={styles.centeredView} BlurRadius={5}>
-          <View>
+        <View style={styles.centeredView}>
+          <View style={styles.imageContainer}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
           </View>
 
-          <View style={styles.cardDetails}>
-            <Text style={styles.cardTitle}>{item.title}</Text>
-            <Text>{item.area}</Text>
-            <Text>{item.user}</Text>
-            <Text>{item.description}</Text>
+          <View style={styles.text}>
+            <Text style={styles.textTitle}>{item.title}</Text>
+            <Text style={styles.textLocation}>{item.area}</Text>
+            <Text style={styles.textUser}>{item.user}</Text>
+            <Text style={styles.textDescription}>{item.description}</Text>
           </View>
           <View>
             <TouchableOpacity style={styles.button}>
@@ -45,28 +48,44 @@ const Activity = ({ item }) => {
     </View>
   );
 };
-
 export default Activity;
 
 const styles = StyleSheet.create({
-  blurry: {
-    blueRadius: 50,
-  },
-  centeredView: {
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
-    flex: 1,
+  container: {
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 22,
-    margin: 20,
-    borderRadius: 10,
-    padding: 35,
+  },
+  textTitle: {
+    color: "white",
+    fontFamily: "creato",
+    fontWeight: "bold",
+  },
+  textDescription: {
+    color: "white",
+    fontFamily: "creato",
+  },
+  textUser: {
+    color: "white",
+    fontFamily: "creato",
+  },
+  textLocation: {
+    color: "white",
+    fontFamily: "creato",
+  },
+  imageContainer: {
+    width: "100%",
+    height: "33%",
+    alignItems: "center",
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    overflow: "hidden",
+  },
+
+  centeredView: {
+    backgroundColor: "#271F29",
+    flex: 1,
     alignItems: "center",
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
   },
   border: {
     borderWidth: 5,
@@ -84,11 +103,9 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: 150,
-    height: 150,
-    aspectRatio: 3 / 2,
-    borderTopLeftRadius: 18,
-    borderBottomLeftRadius: 18,
+    width: "100%",
+    height: "100%",
+    borderWidth: 10,
   },
 
   expandedImage: {
@@ -99,17 +116,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 18,
   },
 
-  cardDetails: {
-    marginLeft: 20,
-    justifyContent: "space-evenly",
-    flexShrink: 1,
-  },
-
-  cardTitle: {
-    paddingBottom: 15,
-    fontWeight: "bold",
-  },
-
   expandedCardDetails: {
     marginLeft: 20,
     justifyContent: "space-evenly",
@@ -117,22 +123,13 @@ const styles = StyleSheet.create({
     padding: 12,
   },
 
-  expandedCard: {
-    backgroundColor: "white",
-    margin: 10,
-    borderRadius: 18,
-    flexDirection: "column",
-    shadowColor: "#000000",
-    elevation: 20,
-    height: "auto",
-  },
-
   button: {
     width: "auto",
-    borderWidth: 8,
-    borderColor: "lightcoral",
+    borderWidth: 2,
+    borderColor: "rgba(175, 196, 249, 1)",
+    backgroundColor: "white",
     margin: 10,
-    borderRadius: 180,
+    borderRadius: 150,
     shadowColor: "#000000",
   },
 
