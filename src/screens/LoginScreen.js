@@ -10,8 +10,8 @@ import React, { useState } from "react";
 import { auth } from "../../firebase";
 
 const LoginScreen = ({ navigation }) => {
-  const [loginEmail, setLoginEmail] = useState("");
-  const [loginPassword, setLoginPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("N@n.com");
+  const [loginPassword, setLoginPassword] = useState("Nnnnnn");
 
   const handleSignIn = () => {
     auth

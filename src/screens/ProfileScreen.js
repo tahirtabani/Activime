@@ -5,75 +5,98 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  Image,
 } from "react-native";
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
+import { connectFirestoreEmulator } from "firebase/firestore";
 
 const ProfileScreen = ({ navigation }) => {
   const currentUserEmail = getAuth().currentUser.email;
-  const currentUser = getAuth();
-
+  const { currentUser } = getAuth();
+  console.log(currentUser.displayName);
   return (
-    <View>
-      <Text style={{ fontSize: 100 }}>Home</Text>
-      <TouchableOpacity
-        onPress={() => {
-          signOut(currentUser);
-          navigation.navigate("LoginScreen");
-          alert(`Successfully signed out of ${currentUserEmail}'s account`);
+    <View styles={styles.profileContainer}>
+      <View styles={styles.profileUsername}>
+        <Text style={{ fontSize: 50 }}>
+          {currentUser.displayName}'s Profile
+        </Text>
+      </View>
+      <View
+        style={{
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        style={styles.button}
       >
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+        <Image
+          source={{ uri: currentUser.photoURL }}
+          style={styles.image}
+        ></Image>
+      </View>
+      <View style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            getAuth().signOut();
+            navigation.navigate("LoginScreen");
+            alert(`Signed out of ${currentUserEmail}'s account`);
+          }}
+          style={styles.button}
+        >
+          <Text
+            style={{
+              backgroundColor: "#E56262",
+              position: "absolute",
+              left: 163,
+              top: 600,
+              width: "auto",
+              borderRadius: 5,
+              color: "white",
+              fontSize: 20,
+              alignItem: "center",
+            }}
+          >
+            Sign Out
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  profileContainer: {
+    position: "absolute",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  profileUsername: {
+    position: "absolute",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  inputContainer: {
-    width: "80%",
-  },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
   button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
-    padding: 15,
-    borderRadius: 10,
-    alignItems: "center",
+    backgroundColor: "#E56262",
+    position: "absolute",
   },
   buttonText: {
-    color: "white",
-    fontWeight: "700",
-    fontSize: 16,
+    position: "absolute",
+    left: 140,
+    top: 70,
+    width: 77,
+    color: "black",
+    fontSize: 20,
+    fontStyle: "normal",
   },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#0782F9",
-    borderWidth: 2,
-  },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontWeight: "700",
-    fontSize: 16,
+  imageContainer: {},
+  image: {
+    borderRadius: 15,
+    borderWidth: 5,
+    borderColor: "black",
+    alignItems: "center",
+    justifyContent: "center",
+    width: "30%",
+    height: "50%",
   },
 });
 export default ProfileScreen;

@@ -64,7 +64,6 @@ const ActivityList = () => {
               </View>
             </Pressable>
           ) : (
-            // </Pressable>
             <Pressable
               style={styles.card}
               onPress={() => {
@@ -99,7 +98,7 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    backgroundColor: "#FAEBD7",
+    backgroundColor: "#71A7C6",
     margin: 10,
     borderRadius: 18,
     flexDirection: "row",

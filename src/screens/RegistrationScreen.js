@@ -34,7 +34,7 @@ const Registration = ({ navigation }) => {
             displayName: username,
 
             photoURL:
-              "https://upload.wikimedia.org/wikipedia/commons/a/a4/Apache_Helicopter_Firing_Rockets_MOD_45154922.jpg",
+              "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg",
           });
         })
         .then((userCredentials) => {
