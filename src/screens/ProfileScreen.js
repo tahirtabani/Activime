@@ -14,24 +14,33 @@ import { connectFirestoreEmulator } from "firebase/firestore";
 const ProfileScreen = ({ navigation }) => {
   const currentUserEmail = getAuth().currentUser.email;
   const { currentUser } = getAuth();
-  console.log(currentUser.displayName);
   return (
-    <View styles={styles.profileContainer}>
-      <View styles={styles.profileUsername}>
-        <Text style={{ fontSize: 50 }}>
-          {currentUser.displayName}'s Profile
-        </Text>
-      </View>
-      <View
-        style={{
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Image
-          source={{ uri: currentUser.photoURL }}
-          style={styles.image}
-        ></Image>
+    <View style={styles.profileContainer}>
+      <View style={styles.header}>
+        <View
+          style={{
+            alignItems: "center",
+            justifyContent: "center",
+            height: "30%",
+          }}
+        >
+          <Image
+            source={{ uri: currentUser.photoURL }}
+            style={styles.image}
+          ></Image>
+        </View>
+        <View style={styles.profileUsername}>
+          <Text
+            style={{
+              fontSize: 30,
+              color: "#C68CEA",
+              marginTop: 30,
+              fontWeight: "bold",
+            }}
+          >
+            {currentUser.displayName}'s Profile
+          </Text>
+        </View>
       </View>
       <View style={styles.button}>
         <TouchableOpacity
@@ -65,12 +74,12 @@ const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    position: "absolute",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: "#271F29",
+    width: "100%",
+    height: "100%",
   },
   profileUsername: {
-    position: "absolute",
+    height: "100%",
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
@@ -78,6 +87,9 @@ const styles = StyleSheet.create({
   button: {
     backgroundColor: "#E56262",
     position: "absolute",
+  },
+  header: {
+    height: "60%",
   },
   buttonText: {
     position: "absolute",
@@ -92,11 +104,12 @@ const styles = StyleSheet.create({
   image: {
     borderRadius: 15,
     borderWidth: 5,
-    borderColor: "black",
+    borderColor: "#C68CEA",
     alignItems: "center",
     justifyContent: "center",
-    width: "30%",
-    height: "50%",
+    marginTop: 300,
+    width: 120,
+    height: 120,
   },
 });
 export default ProfileScreen;
