@@ -5,6 +5,8 @@ import LoginScreen from "./src/screens/LoginScreen";
 import RegistrationScreen from "./src/screens/RegistrationScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
+import Tabs from "./src/screens/Tabs";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -17,13 +19,16 @@ export default function App() {
           component={LoginScreen}
           options={{ headerShown: false }}
         />
-
+        <Stack.Screen
+          name="Tabs"
+          component={Tabs}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
-
         <Stack.Screen
           name="RegistrationScreen"
           component={RegistrationScreen}

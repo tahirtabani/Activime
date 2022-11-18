@@ -17,7 +17,7 @@ const LoginScreen = ({ navigation }) => {
     auth
       .signInWithEmailAndPassword(loginEmail, loginPassword)
       .then((userCredentials) => {
-          navigation.navigate("HomeScreen");
+        navigation.navigate("Tabs");
       })
       .catch((err) => alert(err.message));
   };

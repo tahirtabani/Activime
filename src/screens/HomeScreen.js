@@ -12,14 +12,18 @@ import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import ActivityList from "./ActivityList";
 
-const Home = () => {
+
+const HomeScreen = () => {
+
   return (
     <View>
       <ActivityList />
     </View>
   );
-};
 
-export default Home;
+
+export default HomeScreen;
+
 
 const styles = StyleSheet.create({});
+
