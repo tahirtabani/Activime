@@ -7,16 +7,16 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-} from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase';
-import Activity from './Activity';
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import Activity from "./Activity";
 
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
 
-  const activityRef = db.collection('activity');
+  const activityRef = db.collection("activity");
 
   useEffect(() => {
     activityRef.onSnapshot((querySnapshot) => {
@@ -62,7 +62,7 @@ const ActivityList = () => {
                 <Text>{item.area}</Text>
                 <Text>{item.user}</Text>
               </View>
-            </View>
+            </Pressable>
           ) : (
             // </Pressable>
             <Pressable
@@ -95,15 +95,15 @@ const styles = StyleSheet.create({
   border: {
     borderWidth: 5,
     marginTop: 40,
-    backgroundColor: '#271F29',
+    backgroundColor: "#271F29",
   },
 
   card: {
-    backgroundColor: '#FAEBD7',
+    backgroundColor: "#FAEBD7",
     margin: 10,
     borderRadius: 18,
-    flexDirection: 'row',
-    shadowColor: '#000000',
+    flexDirection: "row",
+    shadowColor: "#000000",
     elevation: 20,
   },
 
@@ -116,8 +116,8 @@ const styles = StyleSheet.create({
   },
 
   expandedImage: {
-    width: 'auto',
-    height: 'auto',
+    width: "auto",
+    height: "auto",
     aspectRatio: 3 / 2,
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
@@ -125,44 +125,44 @@ const styles = StyleSheet.create({
 
   cardDetails: {
     marginLeft: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     flexShrink: 1,
   },
 
   cardTitle: {
     paddingBottom: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 
   expandedCardDetails: {
     marginLeft: 20,
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     flexShrink: 1,
     padding: 12,
   },
 
   expandedCard: {
-    backgroundColor: 'white',
+    backgroundColor: "white",
     margin: 10,
     borderRadius: 18,
-    flexDirection: 'column',
-    shadowColor: '#000000',
+    flexDirection: "column",
+    shadowColor: "#000000",
     elevation: 20,
-    height: 'auto',
+    height: "auto",
   },
 
   button: {
-    width: 'auto',
+    width: "auto",
     borderWidth: 8,
-    borderColor: 'lightcoral',
+    borderColor: "lightcoral",
     margin: 10,
     borderRadius: 180,
-    shadowColor: '#000000',
+    shadowColor: "#000000",
   },
 
   buttonText: {
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     padding: 5,
   },
 });
