@@ -6,7 +6,7 @@ import RegistrationScreen from "./src/screens/RegistrationScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
-
+import PostScreen from "./src/screens/PostScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +14,11 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
+        <Stack.Screen
+          name="PostScreen"
+          component={PostScreen}
+          options={{ headerShown: false }}
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
