@@ -7,6 +7,7 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
 
+
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -35,7 +36,7 @@ export default function App() {
         />
 
         <Stack.Screen
-          name="chatScreen"
+          name="ChatScreen"
           component={ChatScreen}
           options={{ headerShown: false }}
         />
@@ -47,6 +48,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    textColor: "white",
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
