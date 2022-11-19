@@ -15,11 +15,6 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="PostScreen"
-          component={PostScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
@@ -29,6 +24,12 @@ export default function App() {
           component={Tabs}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="PostScreen"
+          component={PostScreen}
+          options={{ headerShown: false }}
+        />
+
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}

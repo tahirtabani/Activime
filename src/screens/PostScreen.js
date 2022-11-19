@@ -1,42 +1,77 @@
 import {
+  addDoc,
+  collection,
+  query,
+  where,
+  writeBatch,
+  doc,
+  snapshot,
+} from "firebase/firestore";
+import {
   StatusBar,
   StyleSheet,
   Text,
   TextInput,
   View,
   TouchableOpacity,
+  datePick,
 } from "react-native";
-import React from "react";
+
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { db } from "../../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import * as _ from "lodash";
 
-const AddData = (data) => {
-  const ref = collection(db, "activity");
+// const deleteEmptyMessages = async () => {
+//   console.log("Im in");
+//   const snapshot = await db
+//     .collection("activity")
+//     .where("ImageURL", "==", "")
+//     .get();
+//   const MAX_WRITES_PER_BATCH = 500; /** https://cloud.google.com/firestore/quotas#writes_and_transactions */
 
-  addDoc(ref, data).then((ref) => {
-    console.log("pls work");
-  });
-};
+//   const batches = _.chunk(snapshot.docs, MAX_WRITES_PER_BATCH);
+//   const commitBatchPromises = [];
 
+//   batches.forEach((batch) => {
+//     console.log("batch: ", batch);
+//     const writeBatch = db.batch();
+//     batch.forEach((doc) => writeBatch.delete(doc.ref));
+//     commitBatchPromises.push(writeBatch.commit());
+//   });
+
+//   await Promise.all(commitBatchPromises);
+// };
 const SignupSchema = Yup.object().shape({
-  Title: Yup.string()
-    .min(2, "Too Short!")
+  title: Yup.string()
+    .min(6, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
-  Description: Yup.string()
-    .min(2, "Too Short!")
+    .required("Please enter a title"),
+  Date: Yup.string()
+    .min(6, "Too Short!")
     .max(50, "Too Long!")
-    .required("Required"),
-  Area: Yup.string().email("Invalid email").required("Required"),
+    .required("Please enter a date"),
 });
 
-const PostScreen = () => {
+const PostScreen = ({ navigation }) => {
+  const AddData = (data) => {
+    console.log("data: ", data);
+    const ref = collection(db, "activity");
+
+    addDoc(ref, data)
+      .then((ref) => {
+        console.log("pls work");
+        alert("Activity posted successfully");
+        navigation.navigate("Tabs");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <Formik
       initialValues={{
-        Title: "",
+        title: "",
         Date: "",
         Time: "",
         Description: "",
@@ -45,25 +80,48 @@ const PostScreen = () => {
         Location: "",
         User: "",
       }}
+      validationSchema={SignupSchema}
       onSubmit={(values) => {
         console.log(values);
+        AddData(values);
       }}
     >
-      {({ values, errors, touched, handleSubmit, handleChange }) => (
+      {({
+        values,
+        errors,
+        touched,
+        handleSubmit,
+        setFieldTouched,
+        handleChange,
+        isValid,
+      }) => (
         <View style={styles.wrapper}>
           <StatusBar barStyle={"light-content"}> </StatusBar>
           <View style={styles.formContainer}>
-            <Text style={styles.title}> Post an Activity</Text>
+            <Text style={styles.title}> Post an Activity </Text>
             <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.inputStyle}
                 placeholder="Title"
                 onChangeText={handleChange("title")}
-                value={values.title}
+                value={values.Title}
+                onBlur={() => setFieldTouched("title")}
               />
+              {errors.title && (
+                <Text style={styles.errorTxt}>{errors.title}</Text>
+              )}
             </View>
+
             <View style={styles.inputWrapper}>
-              <TextInput style={styles.inputStyle} placeholder="Date" />
+              <TextInput
+                style={styles.inputStyle}
+                placeholder="Date"
+                onChangeText={handleChange("Date")}
+                value={values.Date}
+              />
+              {errors.Title && (
+                <Text style={styles.errorTxt}>{errors.Date}</Text>
+              )}
             </View>
             <View style={styles.inputWrapper}>
               <TextInput style={styles.inputStyle} placeholder="Time" />
@@ -84,8 +142,14 @@ const PostScreen = () => {
               <TextInput style={styles.inputStyle} placeholder="User" />
             </View>
             <TouchableOpacity
-              onPress={AddData(values)}
-              style={styles.submitBtn}
+              // onPress={AddData(values)}
+              // onPress={deleteEmptyMessages}
+              onPress={handleSubmit}
+              disabled={!isValid}
+              style={[
+                styles.submitBtn,
+                { backgroundColor: isValid ? "#395B64" : "#A5C9CA" },
+              ]}
             >
               <Text style={styles.submitBtnTxt}>Submit</Text>
             </TouchableOpacity>
@@ -132,7 +196,7 @@ const styles = StyleSheet.create({
     color: "#FF0D10",
   },
   submitBtn: {
-    backgroundcolor: "#395B64",
+    // backgroundcolor: "#395B64",
     padding: 10,
     borderRadius: 15,
     justifyContent: "center",
