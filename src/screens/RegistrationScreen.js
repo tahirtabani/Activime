@@ -28,8 +28,7 @@ const Registration = ({ navigation }) => {
         .createUserWithEmailAndPassword(registrationEmail, registrationPassword)
         .then((userCredentials) => {
           const user = getAuth().currentUser;
-          const analytics = getAnalytics();
-          setUserProperties(analytics, { favorite_food: "apples" });
+
           updateProfile(user, {
             displayName: username,
 

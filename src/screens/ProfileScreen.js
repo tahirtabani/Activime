@@ -6,62 +6,60 @@ import {
   View,
   TextInput,
   Image,
-} from "react-native";
-import React from "react";
-import { getAuth, signOut } from "firebase/auth";
-import { connectFirestoreEmulator } from "firebase/firestore";
+  FlatList,
+  ScrollView,
+  HorizontalScrollView,
+} from 'react-native';
+import React from 'react';
+import { getAuth, signOut } from 'firebase/auth';
+import { connectFirestoreEmulator } from 'firebase/firestore';
 
 const ProfileScreen = ({ navigation }) => {
-  const currentUserEmail = getAuth().currentUser.email;
   const { currentUser } = getAuth();
+
   return (
     <View style={styles.profileContainer}>
-      <View style={styles.header}>
-        <View
-          style={{
-            alignItems: "center",
-            justifyContent: "center",
-            height: "30%",
-          }}
-        >
+      <View style={styles.headerContainer}>
+        <View style={styles.imageContainer}>
           <Image
             source={{ uri: currentUser.photoURL }}
             style={styles.image}
           ></Image>
         </View>
+
         <View style={styles.profileUsername}>
           <Text
             style={{
               fontSize: 30,
-              color: "#C68CEA",
-              marginTop: 30,
-              fontWeight: "bold",
+              color: '#C68CEA',
+              fontWeight: 'bold',
             }}
           >
             {currentUser.displayName}'s Profile
           </Text>
         </View>
       </View>
+
       <View style={styles.button}>
         <TouchableOpacity
           onPress={() => {
             getAuth().signOut();
-            navigation.navigate("LoginScreen");
+            navigation.navigate('LoginScreen');
             alert(`Signed out of ${currentUserEmail}'s account`);
           }}
           style={styles.button}
         >
           <Text
             style={{
-              backgroundColor: "#E56262",
-              position: "absolute",
+              backgroundColor: '#E56262',
+              position: 'absolute',
               left: 163,
               top: 600,
-              width: "auto",
+              width: 'auto',
               borderRadius: 5,
-              color: "white",
+              color: 'white',
               fontSize: 20,
-              alignItem: "center",
+              alignItem: 'center',
             }}
           >
             Sign Out
@@ -74,42 +72,51 @@ const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    backgroundColor: "#271F29",
-    width: "100%",
-    height: "100%",
+    backgroundColor: '#271F29',
+    width: '100%',
+    height: '100%',
   },
   profileUsername: {
-    height: "100%",
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: "#E56262",
-    position: "absolute",
+    backgroundColor: '#E56262',
+    position: 'absolute',
   },
-  header: {
-    height: "60%",
+  headerContainer: {
+    height: '30%',
   },
+
   buttonText: {
-    position: "absolute",
+    position: 'absolute',
     left: 140,
     top: 70,
     width: 77,
-    color: "black",
+    color: 'black',
     fontSize: 20,
-    fontStyle: "normal",
+    fontStyle: 'normal',
   },
-  imageContainer: {},
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 50,
+  },
   image: {
     borderRadius: 15,
-    borderWidth: 5,
-    borderColor: "#C68CEA",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 300,
+    borderWidth: 2,
+    borderColor: '#C68CEA',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 120,
     height: 120,
+  },
+
+  badgeBar: {
+    backgroundColor: 'gray',
+    height: 100,
+    width: '100%',
   },
 });
 export default ProfileScreen;
