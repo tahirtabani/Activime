@@ -45,6 +45,7 @@ const Tabs = () => {
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         // style: {
         //   postion: "absolute",
         //   bottom: 25,

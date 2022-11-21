@@ -96,7 +96,6 @@ const PostScreen = ({ navigation }) => {
         isValid,
       }) => (
         <View style={styles.wrapper}>
-          <StatusBar barStyle={"light-content"}> </StatusBar>
           <View style={styles.formContainer}>
             <Text style={styles.title}> Post an Activity </Text>
             <View style={styles.inputWrapper}>
