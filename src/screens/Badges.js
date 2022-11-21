@@ -61,6 +61,7 @@ export default Badges;
 
 const styles = StyleSheet.create({
   badgeContainer: {
+    marginTop: 40,
     backgroundColor: "#3F3947",
     borderColor: "black",
 

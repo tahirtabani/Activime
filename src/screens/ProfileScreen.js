@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Badges from "./Badges";
+import BioPage from "./BioPage";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
@@ -40,13 +41,14 @@ const ProfileScreen = ({ navigation }) => {
         </View>
       </View>
       <Badges></Badges>
-
+      <View>
+        <BioPage user={currentUser.displayName}></BioPage>
+      </View>
       <View style={styles.button}>
         <TouchableOpacity
           onPress={() => {
             getAuth().signOut();
             navigation.navigate("LoginScreen");
-            alert(`Signed out of ${currentUserEmail}'s account`);
           }}
           style={styles.button}
         >
@@ -65,6 +67,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileUsername: {
+    marginTop: 5,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
