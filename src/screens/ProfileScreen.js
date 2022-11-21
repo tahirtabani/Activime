@@ -9,10 +9,10 @@ import {
   FlatList,
   ScrollView,
   HorizontalScrollView,
-} from 'react-native';
-import React from 'react';
-import { getAuth, signOut } from 'firebase/auth';
-import { connectFirestoreEmulator } from 'firebase/firestore';
+} from "react-native";
+import React from "react";
+import { getAuth, signOut } from "firebase/auth";
+import Badges from "./Badges";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
@@ -31,39 +31,26 @@ const ProfileScreen = ({ navigation }) => {
           <Text
             style={{
               fontSize: 30,
-              color: '#C68CEA',
-              fontWeight: 'bold',
+              color: "#FFBD70",
+              fontWeight: "bold",
             }}
           >
             {currentUser.displayName}'s Profile
           </Text>
         </View>
       </View>
+      <Badges></Badges>
 
       <View style={styles.button}>
         <TouchableOpacity
           onPress={() => {
             getAuth().signOut();
-            navigation.navigate('LoginScreen');
+            navigation.navigate("LoginScreen");
             alert(`Signed out of ${currentUserEmail}'s account`);
           }}
           style={styles.button}
         >
-          <Text
-            style={{
-              backgroundColor: '#E56262',
-              position: 'absolute',
-              left: 163,
-              top: 600,
-              width: 'auto',
-              borderRadius: 5,
-              color: 'white',
-              fontSize: 20,
-              alignItem: 'center',
-            }}
-          >
-            Sign Out
-          </Text>
+          <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -72,51 +59,53 @@ const ProfileScreen = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   profileContainer: {
-    backgroundColor: '#271F29',
-    width: '100%',
-    height: '100%',
+    backgroundColor: "#1C1924",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
   },
   profileUsername: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   button: {
-    backgroundColor: '#E56262',
-    position: 'absolute',
+    width: 100,
+
+    backgroundColor: "#E56262",
+
+    borderRadius: 10,
+    shadowColor: "#000000",
   },
   headerContainer: {
-    height: '30%',
+    height: "30%",
   },
 
   buttonText: {
-    position: 'absolute',
-    left: 140,
-    top: 70,
-    width: 77,
-    color: 'black',
-    fontSize: 20,
-    fontStyle: 'normal',
+    color: "white",
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 5,
   },
   imageContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginTop: 50,
   },
   image: {
-    borderRadius: 15,
+    borderRadius: 100,
     borderWidth: 2,
-    borderColor: '#C68CEA',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "#FFBD70",
+    alignItems: "center",
+    justifyContent: "center",
     width: 120,
     height: 120,
   },
 
   badgeBar: {
-    backgroundColor: 'gray',
+    backgroundColor: "gray",
     height: 100,
-    width: '100%',
+    width: "100%",
   },
 });
 export default ProfileScreen;
