@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { NavigationContainer } from "@react-navigation/native";
-import LoginScreen from "./src/screens/LoginScreen";
-import RegistrationScreen from "./src/screens/RegistrationScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import ChatScreen from "./src/screens/Chat";
-import Tabs from "./src/screens/Tabs";
-import PostScreen from "./src/screens/PostScreen";
-
+import { StyleSheet, Text, View, Image } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import LoginScreen from './src/screens/LoginScreen';
+import RegistrationScreen from './src/screens/RegistrationScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import ChatScreen from './src/screens/Chat';
+import Tabs from './src/screens/Tabs';
+import PostScreen from './src/screens/PostScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,39 +14,40 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen
-          name='LoginScreen'
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='Tabs'
-          component={Tabs}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
+        <Stack.Group>
+          <Stack.Screen
+            name='LoginScreen'
+            component={LoginScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name='Tabs'
+            component={Tabs}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name='PostScreen'
+            component={PostScreen}
+            options={{ headerShown: true }}
+          />
 
-          name="PostScreen"
-          component={PostScreen}
-          options={{ headerShown: false }}
-        />
+          <Stack.Screen
+            name='HomeScreen'
+            component={HomeScreen}
+            options={{ headerShown: true }}
+          />
+          <Stack.Screen
+            name='RegistrationScreen'
+            component={RegistrationScreen}
+            options={{ headerShown: false }}
+          />
 
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name='RegistrationScreen'
-          component={RegistrationScreen}
-          options={{ headerShown: false }}
-        />
-
-        <Stack.Screen
-          name='ChatScreen'
-          component={ChatScreen}
-          options={{ headerShown: false }}
-        />
+          <Stack.Screen
+            name='ChatScreen'
+            component={ChatScreen}
+            options={{ headerShown: true }}
+          />
+        </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
   );

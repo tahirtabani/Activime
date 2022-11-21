@@ -8,6 +8,7 @@ import {
   Image,
 } from 'react-native';
 import React, { useState } from 'react';
+import { useFonts } from 'expo-font';
 import { auth } from '../../firebase';
 
 const LoginScreen = ({ navigation }) => {
