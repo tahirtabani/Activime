@@ -22,7 +22,7 @@ const ActivityList = () => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const { user, title, description, imageUrl, location, area } =
+        const { user, title, description, imageUrl, location, area, time } =
           doc.data();
         activities.push({
           id: doc.id,
@@ -32,6 +32,7 @@ const ActivityList = () => {
           title,
           location,
           area,
+          time,
         });
         setActivity(activities);
       });
@@ -60,11 +61,10 @@ const ActivityList = () => {
               <View style={styles.cardDetails}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text>{item.area}</Text>
-                <Text>{item.user}</Text>
+                <Text>{item.time}</Text>
               </View>
             </Pressable>
           ) : (
-            // </Pressable>
             <Pressable
               style={styles.card}
               onPress={() => {
@@ -77,7 +77,7 @@ const ActivityList = () => {
               <View style={styles.cardDetails}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text>{item.area}</Text>
-                <Text>{item.user}</Text>
+                <Text>{item.time}</Text>
               </View>
             </Pressable>
           )
@@ -93,18 +93,21 @@ export default ActivityList;
 
 const styles = StyleSheet.create({
   border: {
-    borderWidth: 5,
     marginTop: 40,
-    backgroundColor: "#271F29",
+    backgroundColor: "#1C1924",
   },
 
   card: {
-    backgroundColor: "#FAEBD7",
+    backgroundColor: "#3F3947",
     margin: 10,
     borderRadius: 18,
     flexDirection: "row",
     shadowColor: "#000000",
     elevation: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
 
   image: {
@@ -132,6 +135,8 @@ const styles = StyleSheet.create({
   cardTitle: {
     paddingBottom: 15,
     fontWeight: "bold",
+    color: "#FFBD70",
+    fontSize: 15,
   },
 
   expandedCardDetails: {

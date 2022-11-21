@@ -6,8 +6,8 @@ import {
   Pressable,
   Image,
   TouchableOpacity,
-  Modal,
 } from "react-native";
+import Modal from "react-native-modal";
 import { useFonts } from "expo-font";
 import React, { useState, useEffect } from "react";
 
@@ -16,15 +16,23 @@ const Activity = ({ item, setSelectedId }) => {
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
+
   return (
     <View>
       <Modal
-        animationType={"fade"}
-        transparent={false}
-        visible={modalVisible}
-        onRequestClose={() => {
+        isVisible={modalVisible}
+        animationIn="fadeIn"
+        animationOut="SlideOutUp"
+        animationInTiming={400}
+        onSwipeComplete={() => {
           setSelectedId(null);
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
+        }}
+        transparent={true}
+        swipeDirection="up"
+        onBackButtonPress={() => {
+          setSelectedId(null);
+          setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>
@@ -59,6 +67,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontFamily: "creato",
     fontWeight: "bold",
+    fontSize: 20,
   },
   textDescription: {
     color: "white",
@@ -73,6 +82,7 @@ const styles = StyleSheet.create({
     fontFamily: "creato",
   },
   imageContainer: {
+    marginTop: 80,
     width: "100%",
     height: "33%",
     alignItems: "center",
@@ -82,10 +92,11 @@ const styles = StyleSheet.create({
   },
 
   centeredView: {
-    backgroundColor: "#271F29",
+    borderRadius: 15,
+    backgroundColor: "#3F3947",
     flex: 1,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: "#0000",
   },
   border: {
     borderWidth: 5,
