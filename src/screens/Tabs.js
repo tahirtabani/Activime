@@ -7,6 +7,7 @@ import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 import LoginScreen from "./LoginScreen";
 import ProfileScreen from "./ProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import PostScreen from "./PostScreen";
 
 const Tab = createBottomTabNavigator();
 const homePic = require("../../Images/Home.png");
@@ -44,6 +45,7 @@ const Tabs = () => {
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
+        tabBarHideOnKeyboard: true,
         // style: {
         //   postion: "absolute",
         //   bottom: 25,
@@ -126,7 +128,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name="PostScreen"
-        component={HomeScreen}
+        component={PostScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image

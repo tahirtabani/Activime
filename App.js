@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { NavigationContainer } from '@react-navigation/native';
-import LoginScreen from './src/screens/LoginScreen';
-import RegistrationScreen from './src/screens/RegistrationScreen';
-import HomeScreen from './src/screens/HomeScreen';
-import ChatScreen from './src/screens/Chat';
-import Tabs from './src/screens/Tabs';
+import { StyleSheet, Text, View } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import LoginScreen from "./src/screens/LoginScreen";
+import RegistrationScreen from "./src/screens/RegistrationScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import ChatScreen from "./src/screens/Chat";
+import Tabs from "./src/screens/Tabs";
+import PostScreen from "./src/screens/PostScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -24,7 +26,14 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name='HomeScreen'
+
+          name="PostScreen"
+          component={PostScreen}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="HomeScreen"
           component={HomeScreen}
           options={{ headerShown: false }}
         />
