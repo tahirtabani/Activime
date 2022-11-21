@@ -16,24 +16,23 @@ const Activity = ({ item, setSelectedId }) => {
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
+
   return (
     <View>
       <Modal
-        animationType={"fade"}
-        animationIn={"slideInUp"}
-        animationOut="bounceOutLeft"
-        animationInTiming={500}
-        animationOutTiming={500}
-        transparent={true}
-        swipeDirection="left"
         isVisible={modalVisible}
-        onBackButtonPress={() => {
-          setSelectedId(null);
-          setModalVisible(!modalVisible);
-        }}
+        animationIn="fadeIn"
+        animationOut="SlideOutUp"
+        animationInTiming={400}
         onSwipeComplete={() => {
           setSelectedId(null);
-          setModalVisible(!modalVisible);
+          setModalVisible(false);
+        }}
+        transparent={true}
+        swipeDirection="up"
+        onBackButtonPress={() => {
+          setSelectedId(null);
+          setModalVisible(false);
         }}
       >
         <View style={styles.centeredView}>

@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
   cardTitle: {
     paddingBottom: 15,
     fontWeight: "bold",
-    color: "gold",
+    color: "#FFBD70",
     fontSize: 15,
   },
 
