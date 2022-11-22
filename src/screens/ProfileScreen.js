@@ -14,10 +14,14 @@ import {
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Badges from "./Badges";
+import BioPage from "./BioPage";
+import { db } from "../../firebase";
+import ChangeProfilePic from "./ChangeProfilePic";
 import MapComponent from "./MapComponent";
 import MapScreen from "./MapScreen";
 import MapButton from "./MapButton";
 import { useState } from "react";
+
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
@@ -25,6 +29,7 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.profileContainer}>
       <View style={styles.headerContainer}>
+        <ChangeProfilePic></ChangeProfilePic>
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: currentUser.photoURL }}
@@ -45,14 +50,19 @@ const ProfileScreen = ({ navigation }) => {
         </View>
       </View>
       <Badges></Badges>
+
+      <View>
+        <BioPage user={currentUser.displayName}></BioPage>
+      </View>
+
       <MapButton></MapButton>
+
 
       <View style={styles.button}>
         <TouchableOpacity
           onPress={() => {
             getAuth().signOut();
             navigation.navigate("LoginScreen");
-            alert(`Signed out of ${currentUserEmail}'s account`);
           }}
           style={styles.button}
         >
@@ -71,6 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   profileUsername: {
+    marginTop: 5,
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
