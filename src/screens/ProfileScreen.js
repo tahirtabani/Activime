@@ -5,75 +5,113 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+  Image,
+  FlatList,
+  ScrollView,
+  HorizontalScrollView,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
+import Badges from "./Badges";
+import MapComponent from "./MapComponent";
+import MapScreen from "./MapScreen";
+import MapButton from "./MapButton";
+import { useState } from "react";
 
 const ProfileScreen = ({ navigation }) => {
-  const currentUserEmail = getAuth().currentUser.email;
-  const currentUser = getAuth();
-
+  const { currentUser } = getAuth();
+  const [mapVisibility, setMapVisibility] = useState(false);
   return (
-    <View>
-      <Text style={{ fontSize: 100 }}>Home</Text>
-      <TouchableOpacity
-        onPress={() => {
-          signOut(currentUser);
-          navigation.navigate("LoginScreen");
-          alert(`Successfully signed out of ${currentUserEmail}'s account`);
-        }}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Sign Out</Text>
-      </TouchableOpacity>
+    <View style={styles.profileContainer}>
+      <View style={styles.headerContainer}>
+        <View style={styles.imageContainer}>
+          <Image
+            source={{ uri: currentUser.photoURL }}
+            style={styles.image}
+          ></Image>
+        </View>
+
+        <View style={styles.profileUsername}>
+          <Text
+            style={{
+              fontSize: 30,
+              color: "#FFBD70",
+              fontWeight: "bold",
+            }}
+          >
+            {currentUser.displayName}'s Profile
+          </Text>
+        </View>
+      </View>
+      <Badges></Badges>
+      <MapButton></MapButton>
+
+      <View style={styles.button}>
+        <TouchableOpacity
+          onPress={() => {
+            getAuth().signOut();
+            navigation.navigate("LoginScreen");
+            alert(`Signed out of ${currentUserEmail}'s account`);
+          }}
+          style={styles.button}
+        >
+          <Text style={styles.buttonText}>Sign Out</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  profileContainer: {
+    backgroundColor: "#1C1924",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+  },
+  profileUsername: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
   },
-  inputContainer: {
-    width: "80%",
-  },
-  input: {
-    backgroundColor: "white",
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: "60%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 40,
-  },
   button: {
-    backgroundColor: "#0782F9",
-    width: "100%",
-    padding: 15,
+    width: 100,
+
+    backgroundColor: "#E56262",
+
     borderRadius: 10,
-    alignItems: "center",
+    shadowColor: "#000000",
   },
+  headerContainer: {
+    height: "30%",
+  },
+
   buttonText: {
     color: "white",
-    fontWeight: "700",
-    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 5,
   },
-  buttonOutline: {
-    backgroundColor: "white",
-    marginTop: 5,
-    borderColor: "#0782F9",
+  imageContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 50,
+  },
+  image: {
+    borderRadius: 100,
     borderWidth: 2,
+    borderColor: "#FFBD70",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 120,
+    height: 120,
   },
-  buttonOutlineText: {
-    color: "#0782F9",
-    fontWeight: "700",
-    fontSize: 16,
+
+  badgeBar: {
+    backgroundColor: "gray",
+    height: 100,
+    width: "100%",
   },
 });
 export default ProfileScreen;

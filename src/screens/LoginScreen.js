@@ -5,13 +5,21 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+
+  Image,
 } from 'react-native';
 import React, { useState } from 'react';
+import { useFonts } from 'expo-font';
 import { auth } from '../../firebase';
 
 const LoginScreen = ({ navigation }) => {
-  const [loginEmail, setLoginEmail] = useState('ttahir92@gmail.com');
-  const [loginPassword, setLoginPassword] = useState('chairs');
+  const [loginEmail, setLoginEmail] = useState('Testing@test.com');
+  const [loginPassword, setLoginPassword] = useState('Testing');
+
+  const [fontsLoaded] = useFonts({
+    creato: require('../../assets/fonts/CreatoDisplay-Light.otf'),
+  });
+
 
   const handleSignIn = () => {
     auth
@@ -24,6 +32,12 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../../Images/activime_logo_white.png')}
+          style={styles.logo}
+        />
+      </View>
       <View style={styles.inputContainer}>
         <TextInput
           placeholder='Email'
@@ -65,16 +79,25 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
+    backgroundColor: '#1C1924',
+
   },
   inputContainer: {
     width: '80%',
   },
   input: {
-    backgroundColor: 'white',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
+
+    backgroundColor: '#3F3947',
+    color: 'white',
+    placeholderTextColor: 'white',
+    paddingHorizontal: 20,
+    paddingVertical: 15,
+    borderRadius: 20,
+    marginTop: 25,
+    fontSize: 18,
+    textAlign: 'center',
+
   },
   buttonContainer: {
     width: '60%',
@@ -83,11 +106,16 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
-    backgroundColor: '#0782F9',
+
+    backgroundColor: '#446E80',
+
     width: '100%',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+
+    marginTop: 20,
+
   },
   buttonText: {
     color: 'white',
@@ -96,13 +124,30 @@ const styles = StyleSheet.create({
   },
   buttonOutline: {
     backgroundColor: 'white',
-    marginTop: 5,
-    borderColor: '#0782F9',
+
+    marginTop: 20,
+    borderColor: '#446E80',
     borderWidth: 2,
   },
   buttonOutlineText: {
-    color: '#0782F9',
+    color: '#446E80',
+
     fontWeight: '700',
     fontSize: 16,
+  },
+  logoContainer: {
+    width: 300,
+    height: 100,
+    paddingTop: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  logo: {
+    width: 200,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
   },
 });
