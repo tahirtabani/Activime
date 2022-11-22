@@ -13,48 +13,81 @@ import { useFonts } from "expo-font";
 import React, { useState, useEffect } from "react";
 import {
   addDoc,
+  setDoc,
   collection,
   query,
   where,
   writeBatch,
   doc,
   snapshot,
+  updateDoc,
+  update
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { back } from "react-native/Libraries/Animated/Easing";
 import SavedScreen from "./SavedScreen";
+import { getAuth, updateProfile } from "firebase/auth";
+
 
 const Activity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
+  const userEmail = getAuth().currentUser.email
   // const [buttonStyle, setButtonStyle] = useState(button)
 
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
 
-  const addData = (item) => {
-    const savedRef = collection(db, "saved");
+  //save activity to databse functionality
 
+  // const addData = (item) => {
+  //   const savedRef = collection(db, "saved");
+
+  //   const savedItem = {
+  //     area: item.area,
+  //     title: item.title,
+  //     description: item.description,
+  //     imageUrl: item.imageUrl,
+  //     time: item.time,
+  //     user: item.user,
+  //   };
+
+  //   console.log(savedItem, "saved item");
+
+  //   addDoc(savedRef, savedItem)
+  //     .then((savedRef) => {
+  //       alert("Activity saved!!!");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
+  // save to doc functionality
+
+  const addData = () => {
+    const ref = doc(db, "saved", `${userEmail}`);
+
+    const activityObj = {}
+    
     const savedItem = {
       area: item.area,
-      title: item.title,
       description: item.description,
       imageUrl: item.imageUrl,
       time: item.time,
       user: item.user,
     };
 
-    console.log(savedItem, "saved item");
+    activityObj[`${item.title}`] = savedItem
 
-    addDoc(savedRef, savedItem)
-      .then((savedRef) => {
-        alert("Activity saved!!!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+    updateDoc(ref, activityObj).then((ref) => {
+      console.log("pls work");
+    });
   };
+
+  // end of save to doc
 
   return (
     <View>
