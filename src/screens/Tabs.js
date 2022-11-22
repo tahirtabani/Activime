@@ -1,37 +1,37 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ChatScreen from "./Chat";
-import HomeScreen from "./HomeScreen";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
-import LoginScreen from "./LoginScreen";
-import ProfileScreen from "./ProfileScreen";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import PostScreen from "./PostScreen";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ChatScreen from './Chat';
+import HomeScreen from './HomeScreen';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import LoginScreen from './LoginScreen';
+import ProfileScreen from './ProfileScreen';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import PostScreen from './PostScreen';
 
 const Tab = createBottomTabNavigator();
-const homePic = require("../../Images/Home.png");
-const searchPic = require("../../Images/search.png");
-const postPic = require("../../Images/plus.png");
-const profilePic = require("../../Images/user.png");
-const chatPic = require("../../Images/chat.png");
+const homePic = require('../../Images/Home.png');
+const searchPic = require('../../Images/search.png');
+const postPic = require('../../Images/plus.png');
+const profilePic = require('../../Images/user.png');
+const chatPic = require('../../Images/chat.png');
 
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
-      top: -30,
-      justifyContent: "center",
-      alignItems: "center",
+      top: -23,
+      justifyContent: 'center',
+      alignItems: 'center',
       ...styles.shadow,
     }}
     onPress={onPress}
   >
     <View
       style={{
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         borderRadius: 35,
-        backgroundColor: "#e32f45",
+        backgroundColor: '#446E80',
       }}
     >
       {children}
@@ -42,10 +42,16 @@ const CustomTabBarButton = ({ children, onPress }) => (
 const Tabs = () => {
   return (
     <Tab.Navigator
+      style={styles.navBar}
+      barStyle={{ backgroundColor: '#000' }}
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
         tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          backgroundColor: '#446E80',
+        },
+
         // style: {
         //   postion: "absolute",
         //   bottom: 25,
@@ -59,30 +65,30 @@ const Tabs = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name='Home'
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 top: 10,
               }}
             >
               <Image
                 source={homePic}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? "#e32f45" : "#748c94",
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -93,30 +99,30 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name='Search'
         component={HomeScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 top: 10,
               }}
             >
               <Image
                 source={searchPic}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? "#e32f45" : "#748c94",
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -127,17 +133,17 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="PostScreen"
+        name='PostScreen'
         component={PostScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <Image
               source={postPic}
-              resizeMode="contain"
+              resizeMode='contain'
               style={{
                 width: 30,
                 height: 30,
-                tintColor: "#fff",
+                tintColor: '#fff',
               }}
             />
           ),
@@ -145,30 +151,30 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="ProfileScreen"
+        name='ProfileScreen'
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 top: 10,
               }}
             >
               <Image
                 source={profilePic}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? "#e32f45" : "#748c94",
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -179,30 +185,30 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name="Chat"
+        name='Chat'
         component={ChatScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
               style={{
-                alignItems: "center",
-                justifyContent: "center",
+                alignItems: 'center',
+                justifyContent: 'center',
                 top: 10,
               }}
             >
               <Image
                 source={chatPic}
-                resizeMode="contain"
+                resizeMode='contain'
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? "#e32f45" : "#748c94",
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? "#e32f45" : "#748c94",
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -217,14 +223,18 @@ const Tabs = () => {
 };
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: "#7F5DF0",
+    shadowColor: '#000',
     shadowOffset: {
-      width: 0,
+      width: 10,
       height: 10,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 1.25,
     shadowRadius: 3.5,
     elevation: 5,
+  },
+
+  navBar: {
+    backgroundColor: 'black',
   },
 });
 
