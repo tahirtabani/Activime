@@ -5,7 +5,9 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+
   Image,
+
 } from 'react-native';
 import React, { useState } from 'react';
 import { auth } from '../../firebase';
@@ -102,12 +104,16 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
     backgroundColor: '#1C1924',
   },
   inputContainer: {
     width: '80%',
+
   },
+
   input: {
+
     backgroundColor: '#3F3947',
     color: 'white',
     placeholderTextColor: 'white',
@@ -117,6 +123,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontSize: 18,
     textAlign: 'center',
+
   },
   buttonContainer: {
     width: '60%',
@@ -137,6 +144,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   buttonOutline: {
+
     backgroundColor: '#446E80',
     width: '100%',
     padding: 15,
@@ -146,6 +154,7 @@ const styles = StyleSheet.create({
   },
   buttonOutlineText: {
     color: 'white',
+
     fontWeight: '700',
     fontSize: 16,
   },

@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   TextInput,
+
   Image,
 } from 'react-native';
 import React, { useState } from 'react';
@@ -18,6 +19,7 @@ const LoginScreen = ({ navigation }) => {
   const [fontsLoaded] = useFonts({
     creato: require('../../assets/fonts/CreatoDisplay-Light.otf'),
   });
+
 
   const handleSignIn = () => {
     auth
@@ -77,12 +79,15 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+
     backgroundColor: '#1C1924',
+
   },
   inputContainer: {
     width: '80%',
   },
   input: {
+
     backgroundColor: '#3F3947',
     color: 'white',
     placeholderTextColor: 'white',
@@ -92,6 +97,7 @@ const styles = StyleSheet.create({
     marginTop: 25,
     fontSize: 18,
     textAlign: 'center',
+
   },
   buttonContainer: {
     width: '60%',
@@ -100,12 +106,16 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   button: {
+
     backgroundColor: '#446E80',
+
     width: '100%',
     padding: 15,
     borderRadius: 10,
     alignItems: 'center',
+
     marginTop: 20,
+
   },
   buttonText: {
     color: 'white',
@@ -114,12 +124,14 @@ const styles = StyleSheet.create({
   },
   buttonOutline: {
     backgroundColor: 'white',
+
     marginTop: 20,
     borderColor: '#446E80',
     borderWidth: 2,
   },
   buttonOutlineText: {
     color: '#446E80',
+
     fontWeight: '700',
     fontSize: 16,
   },
