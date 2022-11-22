@@ -7,7 +7,7 @@ import {
   doc,
   snapshot,
   connectFirestoreEmulator,
-} from "firebase/firestore";
+} from 'firebase/firestore';
 import {
   StatusBar,
   StyleSheet,
@@ -18,20 +18,20 @@ import {
   datePick,
   KeyboardAvoidingView,
   Button,
-} from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+  Pressable,
+} from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 // import DateTimePicker from "@react-native-community/datetimepicker";
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
-import { Formik } from "formik";
-import * as Yup from "yup";
-import { db } from "../../firebase";
-import * as _ from "lodash";
-import React, { useState } from "react";
-import DatePicker from "react-native-modern-datepicker";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+import { db } from '../../firebase';
+import * as _ from 'lodash';
+import React, { useState } from 'react';
+import DatePicker from 'react-native-modern-datepicker';
 
 // const deleteEmptyMessages = async () => {
 //   console.log("Im in");
@@ -55,9 +55,9 @@ import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 // };
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
-    .min(6, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Please enter a title"),
+    .min(6, 'Too Short!')
+    .max(50, 'Too Long!')
+    .required('Please enter a title'),
   // date: Yup.string()
   //   .min(9, "Too Short!")
   //   .max(9, "Too Long!")
@@ -76,39 +76,37 @@ const PostScreen = ({ navigation }) => {
     setDatePickerVisibility(false);
   };
   const handleConfirm = (date) => {
-    console.warn("A date has been picked: ", date);
     setSelectedDate(date);
-    console.log("date", selectedDate);
     // console.log("selectedDate: ", selectedDate.toLocaleDateString());
     hideDatePicker();
   };
 
   const AddData = (data) => {
-    console.log("data: ", data);
-    const ref = collection(db, "activity");
+    console.log('data: ', data);
+    const ref = collection(db, 'activity');
 
     addDoc(ref, data)
       .then((ref) => {
-        console.log("pls work");
-        alert("Activity posted successfully");
-        navigation.navigate("Tabs");
+        console.log('pls work');
+        alert('Activity posted successfully');
+        navigation.navigate('Tabs');
       })
       .catch((error) => {
         console.log(error);
       });
   };
   return (
-    <KeyboardAvoidingView style={{ flex: 1 }} enabled>
+    <KeyboardAvoidingView behavior='height'>
       <Formik
         initialValues={{
-          title: "",
+          title: '',
           date: selectedDate.toLocaleDateString(),
-          time: "",
-          description: "",
-          imageURL: "",
-          area: "",
-          location: "",
-          user: "",
+          time: '',
+          description: '',
+          imageURL: '',
+          area: '',
+          location: '',
+          user: '',
         }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
@@ -132,10 +130,10 @@ const PostScreen = ({ navigation }) => {
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.inputStyle}
-                  placeholder="Title"
-                  onChangeText={handleChange("title")}
+                  placeholder='Title'
+                  onChangeText={handleChange('title')}
                   value={values.Title}
-                  onBlur={() => setFieldTouched("title")}
+                  onBlur={() => setFieldTouched('title')}
                 />
                 {errors.title && (
                   <Text style={styles.errorTxt}>{errors.title}</Text>
@@ -145,25 +143,24 @@ const PostScreen = ({ navigation }) => {
               <View style={styles.inputWrapper}>
                 <View style={styles.dateContainer}>
                   <TextInput
-                    style={styles.inputStyle}
-                    placeholder={"Date"}
-                    onChangeText={handleChange("date")}
+                    style={styles.dateInputStyle}
+                    placeholder={'Date'}
+                    onChangeText={handleChange('date')}
                     value={selectedDate.toLocaleDateString()}
-                  >
-                    <Pressable onPress={showDatePicker}>
-                      <FontAwesome
-                        name="calendar"
-                        size={18}
-                        color="#25292e"
-                        style={styles.buttonIcon}
-                      />
-                    </Pressable>
-                  </TextInput>
+                  />
+                  <Pressable onPress={showDatePicker} style={styles.dateButton}>
+                    <FontAwesome
+                      name='calendar'
+                      size={30}
+                      color='#fff'
+                      style={styles.buttonIcon}
+                    />
+                  </Pressable>
 
                   <DateTimePickerModal
                     date={selectedDate}
                     isVisible={isDatePickerVisible}
-                    mode="date"
+                    mode='date'
                     onConfirm={handleConfirm}
                     onCancel={hideDatePicker}
                   />
@@ -172,32 +169,21 @@ const PostScreen = ({ navigation }) => {
                   )}
                 </View>
               </View>
+
               <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="ImageURL" />
-                {/* <TextInput
-                  style={styles.inputStyle}
-                  placeholder="Date"
-                  onChangeText={handleChange("date")}
-                  value={values.date}
-                />
-                {errors.Title && (
-                  <Text style={styles.errorTxt}>{errors.date}</Text>
-                )} */}
-              </View>
-              <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="Time" />
+                <TextInput style={styles.inputStyle} placeholder='Time' />
               </View>
               <View style={styles.inputWrapper}>
                 <TextInput
                   style={styles.inputStyle}
-                  placeholder="Description..."
+                  placeholder='Description...'
                   multiline={true}
                   minHeight={100}
-                  textAlignVertical="top"
+                  textAlignVertical='top'
                 />
               </View>
               <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="ImageURL" />
+                <TextInput style={styles.inputStyle} placeholder='ImageURL' />
                 {/* <TextInput
                   style={styles.inputStyle}
                   placeholder="Date"
@@ -227,14 +213,9 @@ const PostScreen = ({ navigation }) => {
                   onCancel={hideDatePicker}
                 /> */}
               </View>
+
               <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="Area" />
-              </View>
-              <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="Location" />
-              </View>
-              <View style={styles.inputWrapper}>
-                <TextInput style={styles.inputStyle} placeholder="User" />
+                <TextInput style={styles.inputStyle} placeholder='Location' />
               </View>
 
               <TouchableOpacity
@@ -244,7 +225,7 @@ const PostScreen = ({ navigation }) => {
                 disabled={!isValid}
                 style={[
                   styles.submitBtn,
-                  { backgroundColor: isValid ? "#395B64" : "#A5C9CA" },
+                  { backgroundColor: isValid ? '#446E80' : '#A5C9CA' },
                 ]}
               >
                 <Text style={styles.submitBtnTxt}>Submit</Text>
@@ -261,51 +242,78 @@ export default PostScreen;
 
 const styles = StyleSheet.create({
   wrapper: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#2C3333",
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#3F3947',
     paddingHorizontal: 15,
-    paddingTop: "auto",
+    paddingTop: 'auto',
+    height: '100%',
   },
+  inputWrapper: {
+    flex: 1,
+    width: '50%',
+  },
+
+  dateButton: {
+    position: 'absolute',
+    right: 10,
+    top: 8,
+  },
+
   formContainer: {
-    backgroundColor: "#F5EDDC",
+    backgroundColor: '#1C1924',
     padding: 20,
     borderRadius: 20,
-    width: "100%",
+    width: '100%',
+  },
+  dateContainer: {
+    flexDirection: 'row',
+    flex: 1,
+  },
+  inputStyle: {
+    borderColor: '#3F3947',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: '#3F3947',
+    color: '#fff',
+  },
+  dateInputStyle: {
+    borderColor: '#16213E',
+    borderWidth: 1,
+    borderRadius: 10,
+    padding: 10,
+    backgroundColor: '#3F3947',
+    color: '#fff',
   },
   title: {
-    color: "#16213E",
+    color: '#fff',
     fontSize: 26,
-    fontWeight: "400",
+    fontWeight: '400',
     marginBottom: 15,
+    textAlign: 'center',
   },
   inputWrapper: {
     marginBottom: 15,
   },
-  inputStyle: {
-    borderColor: "#16213E",
-    borderWidth: 1,
-    borderRadius: 10,
-    padding: 10,
-  },
+
   errorTxt: {
     fontSize: 12,
-    color: "#FF0D10",
+    color: '#FF0D10',
   },
   submitBtn: {
     // backgroundcolor: "#395B64",
     padding: 10,
     borderRadius: 15,
-    justifyContent: "center",
+    justifyContent: 'center',
   },
   submitBtnTxt: {
-    color: "#fff",
-    textAlign: "center",
+    color: '#fff',
+    textAlign: 'center',
     fontSize: 18,
-    fontWeight: "700",
+    fontWeight: '700',
   },
   dateContainer: {
-    width: "100%",
+    width: '100%',
   },
 });
