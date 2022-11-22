@@ -9,14 +9,19 @@ import {
   FlatList,
   ScrollView,
   HorizontalScrollView,
+  Pressable,
 } from "react-native";
 import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Badges from "./Badges";
+import MapComponent from "./MapComponent";
+import MapScreen from "./MapScreen";
+import MapButton from "./MapButton";
+import { useState } from "react";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
-
+  const [mapVisibility, setMapVisibility] = useState(false);
   return (
     <View style={styles.profileContainer}>
       <View style={styles.headerContainer}>
@@ -40,6 +45,7 @@ const ProfileScreen = ({ navigation }) => {
         </View>
       </View>
       <Badges></Badges>
+      <MapButton></MapButton>
 
       <View style={styles.button}>
         <TouchableOpacity

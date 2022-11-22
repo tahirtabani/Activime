@@ -7,7 +7,8 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
 import PostScreen from "./src/screens/PostScreen";
-
+import MapComponent from "./src/screens/MapComponent";
+import MapScreen from "./src/screens/MapScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -16,17 +17,16 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name='LoginScreen'
+          name="LoginScreen"
           component={LoginScreen}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name='Tabs'
+          name="Tabs"
           component={Tabs}
           options={{ headerShown: false }}
         />
         <Stack.Screen
-
           name="PostScreen"
           component={PostScreen}
           options={{ headerShown: false }}
@@ -38,13 +38,13 @@ export default function App() {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name='RegistrationScreen'
+          name="RegistrationScreen"
           component={RegistrationScreen}
           options={{ headerShown: false }}
         />
 
         <Stack.Screen
-          name='ChatScreen'
+          name="ChatScreen"
           component={ChatScreen}
           options={{ headerShown: false }}
         />
@@ -56,9 +56,9 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    textColor: 'white',
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    textColor: "white",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
