@@ -7,35 +7,50 @@ import {
 } from "react-native";
 import React from "react";
 import { useState } from "react";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  updateDoc,
-} from "firebase/firestore";
 
 import { db } from "../../firebase";
 
 const BioPage = ({ user }) => {
   const [userBio, setUserBio] = useState("");
-  const [updatedBio, setUpdatedBio] = useState({ bio: "" });
-  //   const [currentBio, setCurrentBio] = useState({ bio: "" });
+  const [currentBio, setCurrentBio] = useState("");
   const currentUser = user;
 
   const handleUpdatedBio = () => {
-    setUpdatedBio({ bio: userBio });
-
-    if (updatedBio.bio !== "") {
+    if (userBio !== "") {
       db.collection("users")
         .doc(currentUser)
         .update({
-          bio: updatedBio.bio,
+          bio: userBio,
         })
-        .then((user) => {});
+        .then((user) => {})
+        .catch((err) => {
+          alert(err);
+        });
     }
   };
 
-  //   const docRef = doc(db, "users", currentUser);
+  db.collection("users")
+    .doc(currentUser)
+    .get()
+    .then((user) => {
+      if (user.data() === undefined) {
+        db.collection("users")
+          .doc(currentUser)
+          .set({
+            bio: "",
+            age: "",
+            gender: "",
+          })
+          .then((user) => {
+            console.log("successfully created");
+          })
+          .catch((err) => {
+            alert(err);
+          });
+      } else {
+        setCurrentBio(user.data().bio);
+      }
+    });
 
   return (
     <View style={styles.bio}>
@@ -45,13 +60,14 @@ const BioPage = ({ user }) => {
         onChangeText={setUserBio}
         value={userBio}
         editable
-        placeholder={"bio"}
+        placeholder={currentBio}
+        placeholderTextColor="#FFFF"
         numberOfLines={6}
-        defaultValue="bio"
+        defaultValue="nio"
         textAlignVertical="top"
       />
       <TouchableOpacity
-        onPress={() => {
+        onPressOut={() => {
           handleUpdatedBio();
         }}
       >
@@ -62,7 +78,7 @@ const BioPage = ({ user }) => {
             padding: 10,
           }}
         >
-          <Text style={styles.button}>Save</Text>
+          <Text style={styles.button}>Save✔️</Text>
         </View>
       </TouchableOpacity>
       <View></View>

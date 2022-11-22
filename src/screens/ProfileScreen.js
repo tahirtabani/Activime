@@ -14,6 +14,8 @@ import React from "react";
 import { getAuth, signOut } from "firebase/auth";
 import Badges from "./Badges";
 import BioPage from "./BioPage";
+import { db } from "../../firebase";
+import ChangeProfilePic from "./ChangeProfilePic";
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
@@ -21,6 +23,7 @@ const ProfileScreen = ({ navigation }) => {
   return (
     <View style={styles.profileContainer}>
       <View style={styles.headerContainer}>
+        <ChangeProfilePic></ChangeProfilePic>
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: currentUser.photoURL }}
