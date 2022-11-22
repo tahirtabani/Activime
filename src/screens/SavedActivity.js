@@ -24,7 +24,7 @@ import { db } from "../../firebase";
 import { back } from "react-native/Libraries/Animated/Easing";
 import SavedScreen from "./SavedScreen";
 
-const Activity = ({ item, setSelectedId }) => {
+const SavedActivity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
   // const [buttonStyle, setButtonStyle] = useState(button)
@@ -32,29 +32,6 @@ const Activity = ({ item, setSelectedId }) => {
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
-
-  const addData = (item) => {
-    const savedRef = collection(db, "saved");
-
-    const savedItem = {
-      area: item.area,
-      title: item.title,
-      description: item.description,
-      imageUrl: item.imageUrl,
-      time: item.time,
-      user: item.user,
-    };
-
-    console.log(savedItem, "saved item");
-
-    addDoc(savedRef, savedItem)
-      .then((savedRef) => {
-        alert("Activity saved!!!");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
 
   return (
     <View>
@@ -85,24 +62,24 @@ const Activity = ({ item, setSelectedId }) => {
             <Text style={styles.textUser}>{item.user}</Text>
             <Text style={styles.textDescription}>{item.description}</Text>
           </View>
-          <View>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => {
-                setDisabled(true);
-                //come back and set to blacked out button when null
-                disabled ? null : addData(item);
-              }}
-            >
-              <Text style={styles.buttonText}>Join</Text>
-            </TouchableOpacity>
-          </View>
+          {/* // maybe add delete from saved functionality */}
+          {/* <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => {
+                  setDisabled(true);
+                  disabled ? null : addData(item);
+                }}
+              >
+                <Text style={styles.buttonText}>un join</Text>
+              </TouchableOpacity>
+            </View> */}
         </View>
       </Modal>
     </View>
   );
 };
-export default Activity;
+export default SavedActivity;
 
 const styles = StyleSheet.create({
   container: {
