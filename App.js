@@ -11,10 +11,21 @@ import PostScreen from './src/screens/PostScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+  const displayLogo = () => {
+    return (
+      <View style={styles.logoContainer}>
+        <Image
+          style={styles.logo}
+          source={require('./Images/activime_logo_white.png')}
+        ></Image>
+      </View>
+    );
+  };
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Group>
+        <Stack.Group options={{ headerStyle: { backgroundColor: '#1C1924' } }}>
           <Stack.Screen
             name='LoginScreen'
             component={LoginScreen}
@@ -23,18 +34,30 @@ export default function App() {
           <Stack.Screen
             name='Tabs'
             component={Tabs}
-            options={{ headerShown: true }}
+            options={{
+              headerStyle: { backgroundColor: '#446E80' },
+              headerTintColor: '#fff',
+              headerTitle: displayLogo,
+            }}
           />
           <Stack.Screen
             name='PostScreen'
             component={PostScreen}
-            options={{ headerShown: true }}
+            options={{
+              headerStyle: { backgroundColor: '#1C1924' },
+              headerTintColor: '#fff',
+              headerTitle: displayLogo,
+            }}
           />
 
           <Stack.Screen
             name='HomeScreen'
             component={HomeScreen}
-            options={{ headerShown: true }}
+            options={{
+              headerStyle: { backgroundColor: '#1C1924' },
+              headerTintColor: '#fff',
+              headerTitle: displayLogo,
+            }}
           />
           <Stack.Screen
             name='RegistrationScreen'
@@ -45,7 +68,11 @@ export default function App() {
           <Stack.Screen
             name='ChatScreen'
             component={ChatScreen}
-            options={{ headerShown: true }}
+            options={{
+              headerStyle: { backgroundColor: '#1C1924' },
+              headerTintColor: '#fff',
+              headerTitle: displayLogo,
+            }}
           />
         </Stack.Group>
       </Stack.Navigator>
@@ -60,5 +87,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  logoContainer: {
+    marginVertical: 10,
+    width: 200,
+    height: 30,
+  },
+
+  logo: {
+    resizeMode: 'contain',
+    flex: 1,
+    width: 200,
+    height: 50,
+    alignItems: 'center',
+    marginLeft: 20,
   },
 });

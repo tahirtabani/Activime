@@ -19,7 +19,7 @@ const chatPic = require('../../Images/chat.png');
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
-      top: -30,
+      top: -23,
       justifyContent: 'center',
       alignItems: 'center',
       ...styles.shadow,
@@ -42,10 +42,16 @@ const CustomTabBarButton = ({ children, onPress }) => (
 const Tabs = () => {
   return (
     <Tab.Navigator
+      style={styles.navBar}
+      barStyle={{ backgroundColor: '#000' }}
       screenOptions={{
         tabBarShowLabel: false,
         headerShown: false,
         tabBarHideOnKeyboard: true,
+        tabBarStyle: {
+          backgroundColor: '#446E80',
+        },
+
         // style: {
         //   postion: "absolute",
         //   bottom: 25,
@@ -76,13 +82,13 @@ const Tabs = () => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#3F3947' : '#446E80',
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? '#3F3947' : '#446E80',
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -110,13 +116,13 @@ const Tabs = () => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#3F3947' : '#446E80',
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? '#3F3947' : '#446E80',
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -162,13 +168,13 @@ const Tabs = () => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#3F3947' : '#446E80',
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? '#3F3947' : '#446E80',
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -196,13 +202,13 @@ const Tabs = () => {
                 style={{
                   width: 25,
                   height: 25,
-                  tintColor: focused ? '#3F3947' : '#446E80',
+                  tintColor: focused ? '#3F3947' : '#ffffff',
                 }}
               />
               <Text
                 style={{
                   height: 35,
-                  color: focused ? '#3F3947' : '#446E80',
+                  color: focused ? '#3F3947' : '#ffffff',
                   fontSize: 12,
                 }}
               >
@@ -217,14 +223,18 @@ const Tabs = () => {
 };
 const styles = StyleSheet.create({
   shadow: {
-    shadowColor: '#7F5DF0',
+    shadowColor: '#000',
     shadowOffset: {
-      width: 0,
+      width: 10,
       height: 10,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 1.25,
     shadowRadius: 3.5,
     elevation: 5,
+  },
+
+  navBar: {
+    backgroundColor: 'black',
   },
 });
 
