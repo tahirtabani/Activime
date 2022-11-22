@@ -23,12 +23,15 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { db } from "../../firebase";
 import * as _ from "lodash";
 import React, { useState } from "react";
 import DatePicker from "react-native-modern-datepicker";
+import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 
 // const deleteEmptyMessages = async () => {
 //   console.log("Im in");
@@ -140,15 +143,46 @@ const PostScreen = ({ navigation }) => {
               </View>
 
               <View style={styles.inputWrapper}>
-                <TextInput
+                <View style={styles.dateContainer}>
+                  <TextInput
+                    style={styles.inputStyle}
+                    placeholder={"Date"}
+                    onChangeText={handleChange("date")}
+                    value={selectedDate.toLocaleDateString()}
+                  >
+                    <Pressable onPress={showDatePicker}>
+                      <FontAwesome
+                        name="calendar"
+                        size={18}
+                        color="#25292e"
+                        style={styles.buttonIcon}
+                      />
+                    </Pressable>
+                  </TextInput>
+
+                  <DateTimePickerModal
+                    date={selectedDate}
+                    isVisible={isDatePickerVisible}
+                    mode="date"
+                    onConfirm={handleConfirm}
+                    onCancel={hideDatePicker}
+                  />
+                  {errors.Title && (
+                    <Text style={styles.errorTxt}>{errors.date}</Text>
+                  )}
+                </View>
+              </View>
+              <View style={styles.inputWrapper}>
+                <TextInput style={styles.inputStyle} placeholder="ImageURL" />
+                {/* <TextInput
                   style={styles.inputStyle}
-                  placeholder={"Date"}
+                  placeholder="Date"
                   onChangeText={handleChange("date")}
-                  value={selectedDate.toLocaleDateString()}
+                  value={values.date}
                 />
                 {errors.Title && (
                   <Text style={styles.errorTxt}>{errors.date}</Text>
-                )}
+                )} */}
               </View>
               <View style={styles.inputWrapper}>
                 <TextInput style={styles.inputStyle} placeholder="Time" />
@@ -163,7 +197,7 @@ const PostScreen = ({ navigation }) => {
                 />
               </View>
               <View style={styles.inputWrapper}>
-                {/* <TextInput style={styles.inputStyle} placeholder="ImageURL" /> */}
+                <TextInput style={styles.inputStyle} placeholder="ImageURL" />
                 {/* <TextInput
                   style={styles.inputStyle}
                   placeholder="Date"
@@ -173,7 +207,7 @@ const PostScreen = ({ navigation }) => {
                 {errors.Title && (
                   <Text style={styles.errorTxt}>{errors.date}</Text>
                 )} */}
-                <Text
+                {/* <Text
                   name="date"
                   style={{ fontSize: 20, fontWeight: "bold" }}
                   onChangeText={handleChange("date")}
@@ -191,7 +225,7 @@ const PostScreen = ({ navigation }) => {
                   mode="date"
                   onConfirm={handleConfirm}
                   onCancel={hideDatePicker}
-                />
+                /> */}
               </View>
               <View style={styles.inputWrapper}>
                 <TextInput style={styles.inputStyle} placeholder="Area" />
@@ -270,5 +304,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 18,
     fontWeight: "700",
+  },
+  dateContainer: {
+    width: "100%",
   },
 });
