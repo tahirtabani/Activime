@@ -19,10 +19,13 @@ import {
   writeBatch,
   doc,
   snapshot,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { back } from "react-native/Libraries/Animated/Easing";
 import SavedScreen from "./SavedScreen";
+import { getAuth } from "firebase/auth";
+import * as _ from "lodash";
 
 const SavedActivity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
@@ -32,7 +35,11 @@ const SavedActivity = ({ item, setSelectedId }) => {
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
-
+  const deleteData = async (item) => {
+    const userEmail = getAuth().currentUser.email;
+    const res = await db.collection(`${userEmail}`).doc(item.id).delete();
+    alert("Activity deleted");
+  };
   return (
     <View>
       <Modal
@@ -63,17 +70,17 @@ const SavedActivity = ({ item, setSelectedId }) => {
             <Text style={styles.textDescription}>{item.description}</Text>
           </View>
           {/* // maybe add delete from saved functionality */}
-          {/* <View>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => {
-                  setDisabled(true);
-                  disabled ? null : addData(item);
-                }}
-              >
-                <Text style={styles.buttonText}>un join</Text>
-              </TouchableOpacity>
-            </View> */}
+          <View>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={(values) => {
+                setDisabled(true);
+                disabled ? null : deleteData(item);
+              }}
+            >
+              <Text style={styles.buttonText}>un join</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Modal>
     </View>
