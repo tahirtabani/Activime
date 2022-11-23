@@ -15,7 +15,6 @@ import Activity from "./Activity";
 import SavedScreen from "./SavedScreen";
 import SearchScreen from "./SearchScreen";
 
-
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -60,7 +59,6 @@ const ActivityList = () => {
                 setSelectedId(null);
               }}
             >
-
               <Activity
                 item={item}
                 setSelectedId={setSelectedId}
@@ -68,7 +66,10 @@ const ActivityList = () => {
               />
 
               <View>
-                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.fixImage}
+                />
               </View>
 
               <View style={styles.cardDetailsContainer}>
@@ -126,7 +127,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
-
 
   fixImage: {
     // width: 150,
