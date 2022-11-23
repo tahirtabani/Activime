@@ -51,14 +51,14 @@ const SearchScreen = ({ navigation }) => {
       let searched = [];
       //   console.log(snapshot, "snapshot");
       snapshot.docs.forEach((doc) => {
-        searched.push({ ...doc.data() });
+        searched.push({ ...doc.data(), id: doc.id });
       });
       console.log(searched, "searched");
       setSearchResults(searched)
     });
   };
   return searchParam === "" ? (
-    <KeyboardAvoidingView behavior="height">
+    <KeyboardAvoidingView behavior="height" style={styles.border}>
       <Formik
         initialValues={{
           search: "",
@@ -241,7 +241,6 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   border: {
-    marginTop: 40,
     backgroundColor: "#1C1924",
   },
 
