@@ -4,20 +4,21 @@ import {
   View,
   TextInput,
   TouchableOpacity,
-} from "react-native";
-import React from "react";
-import { useState } from "react";
+} from 'react-native';
+import React from 'react';
+import { useState } from 'react';
 
-import { db } from "../../firebase";
+import { db } from '../../firebase';
+import KeyboardAvoidingView from 'react-native/Libraries/Components/Keyboard/KeyboardAvoidingView';
 
 const BioPage = ({ user }) => {
-  const [userBio, setUserBio] = useState("");
-  const [currentBio, setCurrentBio] = useState("");
+  const [userBio, setUserBio] = useState('');
+  const [currentBio, setCurrentBio] = useState('');
   const currentUser = user;
 
   const handleUpdatedBio = () => {
-    if (userBio !== "") {
-      db.collection("users")
+    if (userBio !== '') {
+      db.collection('users')
         .doc(currentUser)
         .update({
           bio: userBio,
@@ -29,20 +30,20 @@ const BioPage = ({ user }) => {
     }
   };
 
-  db.collection("users")
+  db.collection('users')
     .doc(currentUser)
     .get()
     .then((user) => {
       if (user.data() === undefined) {
-        db.collection("users")
+        db.collection('users')
           .doc(currentUser)
           .set({
-            bio: "",
-            age: "",
-            gender: "",
+            bio: '',
+            age: '',
+            gender: '',
           })
           .then((user) => {
-            console.log("successfully created");
+            console.log('successfully created');
           })
           .catch((err) => {
             alert(err);
@@ -53,33 +54,26 @@ const BioPage = ({ user }) => {
     });
 
   return (
-    <View style={styles.bio}>
+    <View style={styles.bioContainer}>
       <TextInput
         multiline
-        style={styles.input}
+        style={styles.bio}
         onChangeText={setUserBio}
         value={userBio}
         editable
         placeholder={currentBio}
-        placeholderTextColor="#FFFF"
+        placeholderTextColor='#FFFF'
         numberOfLines={6}
-        defaultValue="nio"
-        textAlignVertical="top"
+        defaultValue='nio'
+        textAlignVertical='top'
       />
       <TouchableOpacity
+        style={styles.saveBioButton}
         onPressOut={() => {
           handleUpdatedBio();
         }}
       >
-        <View
-          style={{
-            justifyContent: "center",
-            alignItems: "center",
-            padding: 10,
-          }}
-        >
-          <Text style={styles.button}>Save✔️</Text>
-        </View>
+        <Text style={styles.button}>Save Bio</Text>
       </TouchableOpacity>
       <View></View>
     </View>
@@ -89,27 +83,33 @@ const BioPage = ({ user }) => {
 export default BioPage;
 
 const styles = StyleSheet.create({
-  input: {
-    color: "white",
-    height: "auto",
-    width: 400,
-    margin: 12,
-    borderWidth: 1,
-    borderColor: "white",
-    padding: 10,
-    borderRadius: 10,
-    backgroundColor: "#3F3947",
+  bioContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  button: {
-    width: 100,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "purple",
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+
+  bio: {
+    color: 'white',
+    height: 150,
+    width: 350,
+    marginTop: 12,
+    borderWidth: 1,
+    borderColor: 'white',
+    padding: 15,
+    borderRadius: 10,
+    backgroundColor: '#3F3947',
+    textAlign: 'center',
+  },
+  saveBioButton: {
+    width: 130,
+    height: 40,
+    marginVertical: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#446E80',
+    color: 'white',
+    textAlign: 'center',
     padding: 5,
     borderRadius: 10,
-    shadowColor: "#000000",
   },
 });

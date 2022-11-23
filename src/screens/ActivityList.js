@@ -23,8 +23,16 @@ const ActivityList = () => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const { user, title, description, imageUrl, location, area, time } =
-          doc.data();
+        const {
+          user,
+          title,
+          description,
+          imageUrl,
+          location,
+          area,
+          time,
+          date,
+        } = doc.data();
         activities.push({
           id: doc.id,
           user,
@@ -34,6 +42,7 @@ const ActivityList = () => {
           location,
           area,
           time,
+          date,
         });
         setActivity(activities);
       });
@@ -58,8 +67,12 @@ const ActivityList = () => {
               }}
             >
               <Activity item={item} setSelectedId={setSelectedId} />
+
               <View>
-                <Image source={{ uri: item.imageUrl }} style={styles.image} />
+                <Image
+                  source={{ uri: item.imageUrl }}
+                  style={styles.fixImage}
+                />
               </View>
 
               <View style={styles.cardDetailsContainer}>
@@ -81,7 +94,7 @@ const ActivityList = () => {
                 <View style={styles.cardDetailsContainer}>
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.time}</Text>
+                  <Text style={styles.cardDetails}>{item.date}</Text>
                 </View>
               </View>
             </Pressable>
@@ -114,6 +127,17 @@ const styles = StyleSheet.create({
   image: {
     width: 150,
     height: '100%',
+    borderTopLeftRadius: 18,
+    borderBottomLeftRadius: 18,
+  },
+
+  fixImage: {
+    // width: 150,
+    // height: 134,
+    flex: 1,
+    width: 150,
+    height: 'auto',
+    resizeMode: 'cover',
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
