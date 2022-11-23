@@ -13,82 +13,33 @@ import { useFonts } from "expo-font";
 import React, { useState, useEffect } from "react";
 import {
   addDoc,
-  setDoc,
   collection,
   query,
   where,
   writeBatch,
   doc,
   snapshot,
-  updateDoc,
-  update
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { back } from "react-native/Libraries/Animated/Easing";
 import SavedScreen from "./SavedScreen";
-import { getAuth, updateProfile } from "firebase/auth";
+import { getAuth } from "firebase/auth";
+import * as _ from "lodash";
 
-
-const Activity = ({ item, setSelectedId }) => {
+const SavedActivity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
-  const userEmail = getAuth().currentUser.email
   // const [buttonStyle, setButtonStyle] = useState(button)
 
   const [fontsLoaded] = useFonts({
     creato: require("../../assets/fonts/CreatoDisplay-Light.otf"),
   });
-
-  //save activity to databse functionality
-
-  // const addData = (item) => {
-  //   const savedRef = collection(db, "saved");
-
-  //   const savedItem = {
-  //     area: item.area,
-  //     title: item.title,
-  //     description: item.description,
-  //     imageUrl: item.imageUrl,
-  //     time: item.time,
-  //     user: item.user,
-  //   };
-
-  //   console.log(savedItem, "saved item");
-
-  //   addDoc(savedRef, savedItem)
-  //     .then((savedRef) => {
-  //       alert("Activity saved!!!");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  // save to doc functionality
-
-  const addData = () => {
-    const ref = doc(db, "saved", `${userEmail}`);
-
-    const activityObj = {}
-    
-    const savedItem = {
-      area: item.area,
-      description: item.description,
-      imageUrl: item.imageUrl,
-      time: item.time,
-      user: item.user,
-    };
-
-    activityObj[`${item.title}`] = savedItem
-
-
-    updateDoc(ref, activityObj).then((ref) => {
-      console.log("pls work");
-    });
+  const deleteData = async (item) => {
+    const userEmail = getAuth().currentUser.email;
+    const res = await db.collection(`${userEmail}`).doc(item.id).delete();
+    alert("Activity deleted");
   };
-
-  // end of save to doc
-
   return (
     <View>
       <Modal
@@ -118,16 +69,16 @@ const Activity = ({ item, setSelectedId }) => {
             <Text style={styles.textUser}>{item.user}</Text>
             <Text style={styles.textDescription}>{item.description}</Text>
           </View>
+          {/* // maybe add delete from saved functionality */}
           <View>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => {
+              onPress={(values) => {
                 setDisabled(true);
-                //come back and set to blacked out button when null
-                disabled ? null : addData(item);
+                disabled ? null : deleteData(item);
               }}
             >
-              <Text style={styles.buttonText}>Join</Text>
+              <Text style={styles.buttonText}>un join</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -135,7 +86,7 @@ const Activity = ({ item, setSelectedId }) => {
     </View>
   );
 };
-export default Activity;
+export default SavedActivity;
 
 const styles = StyleSheet.create({
   container: {

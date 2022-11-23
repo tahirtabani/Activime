@@ -18,6 +18,7 @@ const ActivityList = () => {
 
   const activityRef = db.collection('activity');
 
+
   useEffect(() => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];

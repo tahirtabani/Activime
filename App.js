@@ -7,8 +7,12 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
 import PostScreen from "./src/screens/PostScreen";
+
+import SavedScreen from "./src/screens/SavedScreen";
+
 import MapComponent from "./src/screens/MapComponent";
 import MapScreen from "./src/screens/MapScreen";
+
 
 const Stack = createNativeStackNavigator();
 
@@ -89,6 +93,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
+
+
   },
   logoContainer: {
     marginVertical: 10,
@@ -103,5 +109,6 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     marginLeft: 20,
+
   },
 });

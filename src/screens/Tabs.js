@@ -1,13 +1,15 @@
-import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import ChatScreen from './Chat';
-import HomeScreen from './HomeScreen';
-import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import LoginScreen from './LoginScreen';
-import ProfileScreen from './ProfileScreen';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import PostScreen from './PostScreen';
+import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import ChatScreen from "./Chat";
+import HomeScreen from "./HomeScreen";
+import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import LoginScreen from "./LoginScreen";
+import ProfileScreen from "./ProfileScreen";
+import Ionicons from "react-native-vector-icons/Ionicons";
+import PostScreen from "./PostScreen";
+import SavedScreen from "./SavedScreen"
+
 
 const Tab = createBottomTabNavigator();
 const homePic = require('../../Images/Home.png');
@@ -185,8 +187,10 @@ const Tabs = () => {
         }}
       />
       <Tab.Screen
-        name='Chat'
-        component={ChatScreen}
+
+        name="SavedScreen"
+        component={SavedScreen}
+
         options={{
           tabBarIcon: ({ focused }) => (
             <View
@@ -212,7 +216,7 @@ const Tabs = () => {
                   fontSize: 12,
                 }}
               >
-                CHAT
+                SAVED
               </Text>
             </View>
           ),
