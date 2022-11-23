@@ -40,8 +40,7 @@ const SignupSchema = Yup.object().shape({
 const SearchScreen = ({ navigation }) => {
   const [searchParam, setSearchParam] = useState("");
   const [selectedId, setSelectedId] = useState(null);
-  const [searchResults, setSearchResults] = useState()
-  
+  const [searchResults, setSearchResults] = useState();
 
   const AddData = (searchParam) => {
     const ref = collection(db, "activity");
@@ -54,7 +53,7 @@ const SearchScreen = ({ navigation }) => {
         searched.push({ ...doc.data(), id: doc.id });
       });
       console.log(searched, "searched");
-      setSearchResults(searched)
+      setSearchResults(searched);
     });
   };
   return searchParam === "" ? (
@@ -126,7 +125,11 @@ const SearchScreen = ({ navigation }) => {
                 console.log(item.id);
               }}
             >
-              <Activity item={item} setSelectedId={setSelectedId}/>
+              <Activity
+                item={item}
+                setSelectedId={setSelectedId}
+                location={item.location}
+              />
               <View>
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>
