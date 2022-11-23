@@ -13,7 +13,6 @@ import SavedScreen from "./src/screens/SavedScreen";
 import MapComponent from "./src/screens/MapComponent";
 import MapScreen from "./src/screens/MapScreen";
 
-
 const Stack = createNativeStackNavigator();
 
 export default function App() {
@@ -80,6 +79,16 @@ export default function App() {
               headerTitle: displayLogo,
             }}
           />
+
+          <Stack.Screen
+            name="SavedScreen"
+            component={SavedScreen}
+            options={{
+              headerStyle: { backgroundColor: "#1C1924" },
+              headerTintColor: "#fff",
+              headerTitle: displayLogo,
+            }}
+          />
         </Stack.Group>
       </Stack.Navigator>
     </NavigationContainer>
@@ -93,8 +102,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
-
-
   },
   logoContainer: {
     marginVertical: 10,
@@ -109,6 +116,5 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     marginLeft: 20,
-
   },
 });
