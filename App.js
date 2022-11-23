@@ -7,8 +7,8 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
 import PostScreen from "./src/screens/PostScreen";
-
 import SavedScreen from "./src/screens/SavedScreen";
+import SavedScreenResults from "./src/screens/SavedScreenResults"
 
 import MapComponent from "./src/screens/MapComponent";
 import MapScreen from "./src/screens/MapScreen";
@@ -83,6 +83,16 @@ export default function App() {
           <Stack.Screen
             name="SavedScreen"
             component={SavedScreen}
+            options={{
+              headerStyle: { backgroundColor: "#1C1924" },
+              headerTintColor: "#fff",
+              headerTitle: displayLogo,
+            }}
+          />
+
+          <Stack.Screen
+            name="SavedScreenResults"
+            component={SavedScreenResults}
             options={{
               headerStyle: { backgroundColor: "#1C1924" },
               headerTintColor: "#fff",
