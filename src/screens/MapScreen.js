@@ -4,6 +4,7 @@ import MapView from "react-native-maps";
 import * as Location from "expo-location";
 import { Marker } from "react-native-maps";
 import { StatusBar } from "expo-status-bar";
+import SavedMapLocation from "./SavedMapLocation";
 import Modal from "react-native-modal";
 
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
@@ -14,7 +15,12 @@ import MapComponent from "./MapComponent";
 // location from geolocation
 // region is for mapview
 
-function MapScreen({ setMapVisibility, mapVisibility }) {
+function MapScreen({
+  setMapVisibility,
+  mapVisibility,
+  PostsLocation,
+  ActivityTitle,
+}) {
   const dummy_marker = {
     latlng: { latitude: 53.45773759071978, longitude: -2.750744316726923 },
     title: "bob",
@@ -118,7 +124,6 @@ function MapScreen({ setMapVisibility, mapVisibility }) {
       description: "meet here",
     };
 
-    console.log("new meet Marker = ", newMarker);
     setMeetMarker(newMarker);
     setMarkers((oldMarkers) => [newMarker]);
     //console.log(location);
@@ -130,9 +135,9 @@ function MapScreen({ setMapVisibility, mapVisibility }) {
   // <SearchComponent />
   // <MapComponent markers={markers} mapRegion={mapRegion} />
   // <DatePickerComponent />
-
+  const [selectedLocation, setSelectedLocation] = useState();
   const onSelectLocation = () => {
-    console.log("location selected => ", meetMarker);
+    setSelectedLocation(meetMarker);
   };
 
   // <View style={{ flexDirection : "row" }} >
@@ -150,13 +155,12 @@ function MapScreen({ setMapVisibility, mapVisibility }) {
       <Modal
         isVisible={mapVisibility}
         animationIn="fadeIn"
-        animationOut="slideOutDown"
+        animationOut="fadeOut"
         animationInTiming={400}
         animationOutTiming={400}
         transparent={true}
         hideCloseButton={false}
         backdropOpacity={0}
-        onBackdropPress={() => setMapVisibility(false)}
         onBackButtonPress={() => {
           setMapVisibility(false);
         }}
@@ -187,6 +191,13 @@ function MapScreen({ setMapVisibility, mapVisibility }) {
           <View style={{ flex: 1 }} />
         </View>
       </Modal>
+      <SavedMapLocation
+        selectedLocation={PostsLocation}
+        markers={markers}
+        mapRegion={mapRegion}
+        onRegionChange={onRegionChange}
+        ActivityTitle={ActivityTitle}
+      ></SavedMapLocation>
     </View>
   );
 }

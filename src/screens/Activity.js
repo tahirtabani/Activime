@@ -20,11 +20,12 @@ import {
 import Modal from "react-native-modal";
 import { db } from "../../firebase";
 import { useFonts } from "expo-font";
-
+import MapScreen from "./MapScreen";
 import React, { useState, useEffect } from "react";
 import { getAuth } from "firebase/auth";
+import SavedMapLocation from "./SavedMapLocation";
 
-const Activity = ({ item, setSelectedId }) => {
+const Activity = ({ item, setSelectedId, location }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const userEmail = getAuth().currentUser.email;
@@ -82,14 +83,9 @@ const Activity = ({ item, setSelectedId }) => {
       <Modal
         isVisible={modalVisible}
         animationIn="fadeIn"
-        animationOut="SlideOutUp"
+        animationOut="fadeOut"
         animationInTiming={400}
-        onSwipeComplete={() => {
-          setSelectedId(null);
-          setModalVisible(false);
-        }}
         transparent={true}
-        swipeDirection="up"
         onBackButtonPress={() => {
           setSelectedId(null);
           setModalVisible(false);
@@ -99,11 +95,17 @@ const Activity = ({ item, setSelectedId }) => {
           <View style={styles.imageContainer}>
             <Image source={{ uri: item.imageUrl }} style={styles.image} />
           </View>
-
           <View style={styles.text}>
             <Text style={styles.textTitle}>{item.title}</Text>
             <Text style={styles.textLocation}>Location: {item.area}</Text>
             <Text style={styles.textUser}>Created By: {item.user}</Text>
+          </View>
+
+          <View>
+            <MapScreen
+              PostsLocation={location}
+              ActivityTitle={item.title}
+            ></MapScreen>
           </View>
           <View style={styles.descriptionContainer}>
             <Text style={styles.textDescription}>{item.description}</Text>
