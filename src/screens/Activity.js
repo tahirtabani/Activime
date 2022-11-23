@@ -9,14 +9,16 @@ import {
 } from 'react-native';
 import Modal from 'react-native-modal';
 import { useFonts } from 'expo-font';
+
 import React, { useState, useEffect } from 'react';
+import { getAuth } from 'firebase/auth';
 
 const Activity = ({ item, setSelectedId }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [disabled, setDisabled] = useState(false);
   const userEmail = getAuth().currentUser.email;
   // const [buttonStyle, setButtonStyle] = useState(button)
-
+  // getAuth().currentUser.email;
   const [fontsLoaded] = useFonts({
     creato: require('../../assets/fonts/CreatoDisplay-Light.otf'),
   });
