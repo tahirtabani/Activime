@@ -99,7 +99,6 @@ const styles = StyleSheet.create({
     marginTop: 40,
     backgroundColor: "#1C1924",
   },
-
   card: {
     backgroundColor: "#3F3947",
     margin: 10,
@@ -112,7 +111,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2,
   },
-
   image: {
     width: 150,
     height: 150,
@@ -121,56 +119,35 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 18,
   },
 
-  expandedImage: {
-    width: "auto",
-    height: "auto",
-    aspectRatio: 3 / 2,
+  fixImage: {
+    // width: 150,
+    // height: 134,
+    flex: 1,
+    width: 150,
+    height: 'auto',
+    resizeMode: 'cover',
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
   },
 
-  cardDetails: {
-    marginLeft: 20,
-    justifyContent: "space-evenly",
+  cardContainer: {
     flexShrink: 1,
   },
-
-  cardTitle: {
-    paddingBottom: 15,
-    fontWeight: "bold",
-    color: "#FFBD70",
-    fontSize: 15,
-  },
-
-  expandedCardDetails: {
-    marginLeft: 20,
-    justifyContent: "space-evenly",
+  cardDetailsContainer: {
     flexShrink: 1,
     padding: 12,
   },
 
-  expandedCard: {
-    backgroundColor: "white",
-    margin: 10,
-    borderRadius: 18,
-    flexDirection: "column",
-    shadowColor: "#000000",
-    elevation: 20,
-    height: "auto",
+  cardDetails: {
+    color: '#fff',
+    marginTop: 20,
+    marginBottom: 10,
   },
-
-  button: {
-    width: "auto",
-    borderWidth: 8,
-    borderColor: "lightcoral",
-    margin: 10,
-    borderRadius: 180,
-    shadowColor: "#000000",
-  },
-
-  buttonText: {
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: 5,
+  cardTitle: {
+    color: '#fff',
+    fontSize: 18,
+    marginTop: 10,
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
 });
