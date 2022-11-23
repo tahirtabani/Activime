@@ -20,7 +20,6 @@ const ActivityList = () => {
 
   const activityRef = db.collection("activity");
 
-
   useEffect(() => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
@@ -95,59 +94,57 @@ const ActivityList = () => {
 export default ActivityList;
 
 const styles = StyleSheet.create({
-  border: {
-    marginTop: 40,
+  list: {
     backgroundColor: "#1C1924",
   },
   card: {
     backgroundColor: "#3F3947",
-    margin: 10,
+    marginTop: 30,
+    marginHorizontal: 10,
     borderRadius: 18,
     flexDirection: "row",
-    shadowColor: "#000000",
-    elevation: 20,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.8,
-    shadowRadius: 2,
+    borderWidth: 1,
+    borderColor: "#446E80",
   },
   image: {
     width: 150,
-    height: 150,
-    aspectRatio: 3 / 2,
+    height: "100%",
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
-
   fixImage: {
     // width: 150,
     // height: 134,
     flex: 1,
     width: 150,
-    height: 'auto',
-    resizeMode: 'cover',
+    height: "auto",
+    resizeMode: "cover",
     borderTopLeftRadius: 18,
-    borderTopRightRadius: 18,
+    borderBottomLeftRadius: 18,
   },
-
   cardContainer: {
     flexShrink: 1,
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
   },
   cardDetailsContainer: {
     flexShrink: 1,
-    padding: 12,
+    paddingLeft: 30,
+    borderLeftWidth: 1,
+    height: "100%",
+    borderLeftColor: "#446E80",
   },
-
   cardDetails: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 20,
     marginBottom: 10,
   },
   cardTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
     marginTop: 10,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    justifyContent: "center",
+    flexWrap: "wrap",
   },
 });
