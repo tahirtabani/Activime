@@ -9,6 +9,7 @@ import {
   connectFirestoreEmulator,
   GeoPoint,
 } from "firebase/firestore";
+import { firebase } from "@firebase/app";
 import {
   StatusBar,
   StyleSheet,
@@ -27,7 +28,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-import { Formik } from "formik";
+import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import { db } from "../../firebase";
 import * as _ from "lodash";
@@ -74,9 +75,9 @@ const PostScreen = ({ navigation }) => {
   const [chosenLocation, setChosenLocation] = useState({
     latlng: { latitude: 0, longitude: 0 },
   });
-  const [finalLocation, setFinalLocation] = useState({
-    latlng: { latitude: 0, longitude: 0 },
-  });
+  // const [finalLocation, setFinalLocation] = useState({
+  //   latlng: { latitude: 0, longitude: 0 },
+  // });
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -98,7 +99,6 @@ const PostScreen = ({ navigation }) => {
     // console.log("selectedDate: ", selectedDate.toLocaleDateString());
     hideDatePicker();
   };
-
   useEffect(() => {
     if (chosenLocation.latlng.latitude !== 0) {
       setFinalLocation(chosenLocation);
@@ -129,10 +129,7 @@ const PostScreen = ({ navigation }) => {
           description: "",
           imageUrl: "",
           area: "",
-          location: new GeoPoint(
-            finalLocation.latlng.latitude,
-            finalLocation.latlng.longitude
-          ),
+          location: "",
           user: "",
         }}
         validationSchema={SignupSchema}
@@ -242,8 +239,13 @@ const PostScreen = ({ navigation }) => {
                   style={styles.inputStyle}
                   placeholder="Location"
                   placeholderTextColor="#FFFF"
-                  onChangeText={handleChange("location")}
-                  value={finalLocation}
+                  onChangeText={handleChange("geopoint")}
+                  value={
+                    (values.location = new GeoPoint(
+                      chosenLocation.latlng.latitude,
+                      chosenLocation.latlng.longitude
+                    ))
+                  }
                 />
                 <Pressable onPress={() => {}} style={styles.dateButton}>
                   <MapButton setChosenLocation={setChosenLocation}>
