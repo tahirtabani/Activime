@@ -11,8 +11,10 @@ import {
 import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import Activity from "./Activity";
+
 import SavedScreen from "./SavedScreen";
 import SearchScreen from "./SearchScreen";
+
 
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
@@ -58,7 +60,13 @@ const ActivityList = () => {
                 setSelectedId(null);
               }}
             >
-              <Activity item={item} setSelectedId={setSelectedId} />
+
+              <Activity
+                item={item}
+                setSelectedId={setSelectedId}
+                location={item.location}
+              />
+
               <View>
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>
@@ -99,52 +107,64 @@ export default ActivityList;
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: '#1C1924',
+    backgroundColor: "#1C1924",
   },
 
   card: {
-    backgroundColor: '#3F3947',
+    backgroundColor: "#3F3947",
     marginTop: 30,
     marginHorizontal: 10,
     borderRadius: 18,
-    flexDirection: 'row',
+    flexDirection: "row",
     borderWidth: 1,
-    borderColor: '#446E80',
+    borderColor: "#446E80",
   },
 
   image: {
     width: 150,
-    height: '100%',
+    height: "100%",
+    borderTopLeftRadius: 18,
+    borderBottomLeftRadius: 18,
+  },
+
+
+  fixImage: {
+    // width: 150,
+    // height: 134,
+    flex: 1,
+    width: 150,
+    height: "auto",
+    resizeMode: "cover",
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
 
   cardContainer: {
     flexShrink: 1,
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
+    flexDirection: "row",
+    width: "100%",
+    alignItems: "center",
   },
 
   cardDetailsContainer: {
     flexShrink: 1,
     paddingLeft: 30,
     borderLeftWidth: 1,
-    height: '100%',
-    borderLeftColor: '#446E80',
+    height: "100%",
+    borderLeftColor: "#446E80",
   },
 
   cardDetails: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 20,
     marginBottom: 10,
   },
 
   cardTitle: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
     marginTop: 10,
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    justifyContent: "center",
+    flexWrap: "wrap",
   },
 });
