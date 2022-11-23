@@ -86,6 +86,7 @@ const Activity = ({ item, setSelectedId, location }) => {
         animationOut="fadeOut"
         animationInTiming={400}
         transparent={true}
+        onBackdropPress={() => setModalVisible(false)}
         onBackButtonPress={() => {
           setSelectedId(null);
           setModalVisible(false);

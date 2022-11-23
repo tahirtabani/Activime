@@ -20,6 +20,7 @@ function MapScreen({
   mapVisibility,
   PostsLocation,
   ActivityTitle,
+  setChosenLocation,
 }) {
   const dummy_marker = {
     latlng: { latitude: 53.45773759071978, longitude: -2.750744316726923 },
@@ -137,7 +138,9 @@ function MapScreen({
   // <DatePickerComponent />
   const [selectedLocation, setSelectedLocation] = useState();
   const onSelectLocation = () => {
+    setChosenLocation(selectedLocation);
     setSelectedLocation(meetMarker);
+    console.log("this is selected location", selectedLocation);
   };
 
   // <View style={{ flexDirection : "row" }} >
@@ -149,48 +152,8 @@ function MapScreen({
   // </View>
 
   //   const [modalVisible, setModalVisible] = useState(false);
-
-  return (
-    <View>
-      <Modal
-        isVisible={mapVisibility}
-        animationIn="fadeIn"
-        animationOut="fadeOut"
-        animationInTiming={400}
-        animationOutTiming={400}
-        transparent={true}
-        hideCloseButton={false}
-        backdropOpacity={0}
-        onBackButtonPress={() => {
-          setMapVisibility(false);
-        }}
-      >
-        <View style={{ flex: 1, flexDirection: "column" }}>
-          <View style={{ flex: 1 }} />
-
-          <Text>SCROLL MAP TO CHOOSE MEETING LOCATION </Text>
-          <MapComponent
-            markers={markers}
-            mapRegion={mapRegion}
-            onRegionChange={onRegionChange}
-          />
-          <Button
-            onPress={onSelectLocation}
-            title="Select Location"
-            color="#841584"
-            accessibilityLabel="Select Location on map"
-          />
-          <Button
-            onPress={() => {
-              setMapVisibility(false);
-            }}
-            title="Close"
-            color="blue"
-            accessibilityLabel="Close map"
-          />
-          <View style={{ flex: 1 }} />
-        </View>
-      </Modal>
+  if (PostsLocation !== undefined) {
+    return (
       <SavedMapLocation
         selectedLocation={PostsLocation}
         markers={markers}
@@ -198,8 +161,52 @@ function MapScreen({
         onRegionChange={onRegionChange}
         ActivityTitle={ActivityTitle}
       ></SavedMapLocation>
-    </View>
-  );
+    );
+  } else {
+    return (
+      <View>
+        <Modal
+          isVisible={mapVisibility}
+          animationIn="fadeIn"
+          animationOut="fadeOut"
+          animationInTiming={400}
+          animationOutTiming={400}
+          transparent={true}
+          hideCloseButton={false}
+          backdropOpacity={0}
+          onBackButtonPress={() => {
+            setMapVisibility(false);
+          }}
+        >
+          <View style={{ flex: 1, flexDirection: "column" }}>
+            <View style={{ flex: 1 }} />
+
+            <Text>SCROLL MAP TO CHOOSE MEETING LOCATION </Text>
+            <MapComponent
+              markers={markers}
+              mapRegion={mapRegion}
+              onRegionChange={onRegionChange}
+            />
+            <Button
+              onPress={onSelectLocation}
+              title="Select Location"
+              color="#841584"
+              accessibilityLabel="Select Location on map"
+            />
+            <Button
+              onPress={() => {
+                setMapVisibility(false);
+              }}
+              title="Close"
+              color="blue"
+              accessibilityLabel="Close map"
+            />
+            <View style={{ flex: 1 }} />
+          </View>
+        </Modal>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({

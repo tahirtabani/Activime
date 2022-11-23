@@ -13,7 +13,7 @@ import { StatusBar } from "expo-status-bar";
 */
 
 function MapComponent(props) {
-  console.log(props.mapRegion);
+  // console.log(props.mapRegion);
   //  const [pins] = props;
   //  const [markers, setMarkers] = useState([]);
   //  const [mapRegion, setMapRegion] = useState(null);

@@ -7,6 +7,7 @@ import {
   doc,
   snapshot,
   connectFirestoreEmulator,
+  GeoPoint,
 } from "firebase/firestore";
 import {
   StatusBar,
@@ -20,7 +21,7 @@ import {
   Button,
   Pressable,
 } from "react-native";
-
+import MapButton from "./MapButton";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
@@ -30,7 +31,7 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { db } from "../../firebase";
 import * as _ from "lodash";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-native-modern-datepicker";
 
 // const deleteEmptyMessages = async () => {
@@ -70,6 +71,12 @@ const PostScreen = ({ navigation }) => {
   const [selectedTime, setSelectedTime] = useState(
     TimeNow.toLocaleTimeString()
   );
+  const [chosenLocation, setChosenLocation] = useState({
+    latlng: { latitude: 0, longitude: 0 },
+  });
+  const [finalLocation, setFinalLocation] = useState({
+    latlng: { latitude: 0, longitude: 0 },
+  });
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -91,6 +98,12 @@ const PostScreen = ({ navigation }) => {
     // console.log("selectedDate: ", selectedDate.toLocaleDateString());
     hideDatePicker();
   };
+
+  useEffect(() => {
+    if (chosenLocation.latlng.latitude !== 0) {
+      setFinalLocation(chosenLocation);
+    }
+  }, []);
 
   const AddData = (data) => {
     console.log("data: ", data);
@@ -116,12 +129,14 @@ const PostScreen = ({ navigation }) => {
           description: "",
           imageUrl: "",
           area: "",
-          location: "",
+          location: new GeoPoint(
+            finalLocation.latlng.latitude,
+            finalLocation.latlng.longitude
+          ),
           user: "",
         }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          console.log(values);
           AddData(values);
         }}
       >
@@ -228,8 +243,13 @@ const PostScreen = ({ navigation }) => {
                   placeholder="Location"
                   placeholderTextColor="#FFFF"
                   onChangeText={handleChange("location")}
-                  value={values.location}
+                  value={finalLocation}
                 />
+                <Pressable onPress={() => {}} style={styles.dateButton}>
+                  <MapButton setChosenLocation={setChosenLocation}>
+                    {console.log("chosen location works", chosenLocation)}
+                  </MapButton>
+                </Pressable>
               </View>
 
               <TouchableOpacity
