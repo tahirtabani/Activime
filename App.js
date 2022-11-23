@@ -7,7 +7,6 @@ import HomeScreen from "./src/screens/HomeScreen";
 import ChatScreen from "./src/screens/Chat";
 import Tabs from "./src/screens/Tabs";
 import PostScreen from "./src/screens/PostScreen";
-
 import SavedScreen from "./src/screens/SavedScreen";
 
 import MapComponent from "./src/screens/MapComponent";

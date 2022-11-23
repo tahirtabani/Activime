@@ -12,6 +12,10 @@ import React, { useState, useEffect } from "react";
 import { db } from "../../firebase";
 import Activity from "./Activity";
 
+import SavedScreen from "./SavedScreen";
+import SearchScreen from "./SearchScreen";
+
+
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
@@ -22,16 +26,8 @@ const ActivityList = () => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const {
-          user,
-          title,
-          description,
-          imageUrl,
-          location,
-          area,
-          time,
-          date,
-        } = doc.data();
+        const { user, title, description, imageUrl, location, area, time } =
+          doc.data();
         activities.push({
           id: doc.id,
           user,
@@ -41,7 +37,6 @@ const ActivityList = () => {
           location,
           area,
           time,
-          date,
         });
         setActivity(activities);
       });
@@ -65,6 +60,7 @@ const ActivityList = () => {
                 setSelectedId(null);
               }}
             >
+
               <Activity
                 item={item}
                 setSelectedId={setSelectedId}
@@ -72,10 +68,7 @@ const ActivityList = () => {
               />
 
               <View>
-                <Image
-                  source={{ uri: item.imageUrl }}
-                  style={styles.fixImage}
-                />
+                <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>
 
               <View style={styles.cardDetailsContainer}>
@@ -97,7 +90,7 @@ const ActivityList = () => {
                 <View style={styles.cardDetailsContainer}>
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.date}</Text>
+                  <Text style={styles.cardDetails}>{item.time}</Text>
                 </View>
               </View>
             </Pressable>
@@ -133,6 +126,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
+
 
   fixImage: {
     // width: 150,
