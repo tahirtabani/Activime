@@ -7,32 +7,26 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-} from 'react-native';
-import React, { useState, useEffect } from 'react';
-import { db } from '../../firebase';
-import Activity from './Activity';
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import { db } from "../../firebase";
+import Activity from "./Activity";
+import SavedScreen from "./SavedScreen";
+import SearchScreen from "./SearchScreen";
 
 const ActivityList = () => {
   const [activity, setActivity] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
 
-  const activityRef = db.collection('activity');
+  const activityRef = db.collection("activity");
 
 
   useEffect(() => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const {
-          user,
-          title,
-          description,
-          imageUrl,
-          location,
-          area,
-          time,
-          date,
-        } = doc.data();
+        const { user, title, description, imageUrl, location, area, time } =
+          doc.data();
         activities.push({
           id: doc.id,
           user,
@@ -42,7 +36,6 @@ const ActivityList = () => {
           location,
           area,
           time,
-          date,
         });
         setActivity(activities);
       });
@@ -50,12 +43,8 @@ const ActivityList = () => {
   }, []);
 
   return (
-    <View style={styles.flatListContainer}>
+    <View style={styles.border}>
       <FlatList
-        ListFooterComponent={
-          <View style={{ height: 0, marginBottom: 40 }}></View>
-        }
-        style={styles.list}
         data={activity}
         numColumns={1}
         renderItem={({ item }) =>
@@ -64,21 +53,18 @@ const ActivityList = () => {
               style={styles.card}
               onPress={() => {
                 setSelectedId(null);
+                console.log(item.id);
               }}
             >
               <Activity item={item} setSelectedId={setSelectedId} />
-
               <View>
-                <Image
-                  source={{ uri: item.imageUrl }}
-                  style={styles.fixImage}
-                />
+                <Image source={{ uri: item.imageUrl }} style={styles.image} />
               </View>
 
-              <View style={styles.cardDetailsContainer}>
+              <View style={styles.cardDetails}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
-                <Text style={styles.cardDetails}>{item.area}</Text>
-                <Text style={styles.cardDetails}>{item.time}</Text>
+                <Text>{item.area}</Text>
+                <Text>{item.time}</Text>
               </View>
             </Pressable>
           ) : (
@@ -88,14 +74,13 @@ const ActivityList = () => {
                 setSelectedId(item.id);
               }}
             >
-              <View style={styles.cardContainer}>
+              <View>
                 <Image source={{ uri: item.imageUrl }} style={styles.image} />
-
-                <View style={styles.cardDetailsContainer}>
-                  <Text style={styles.cardTitle}>{item.title}</Text>
-                  <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.date}</Text>
-                </View>
+              </View>
+              <View style={styles.cardDetails}>
+                <Text style={styles.cardTitle}>{item.title}</Text>
+                <Text>{item.area}</Text>
+                <Text>{item.time}</Text>
               </View>
             </Pressable>
           )
@@ -110,24 +95,30 @@ const ActivityList = () => {
 export default ActivityList;
 
 const styles = StyleSheet.create({
-  list: {
-    backgroundColor: '#1C1924',
+  border: {
+    marginTop: 40,
+    backgroundColor: "#1C1924",
   },
   card: {
-    backgroundColor: '#3F3947',
-    marginTop: 30,
-    marginHorizontal: 10,
+    backgroundColor: "#3F3947",
+    margin: 10,
     borderRadius: 18,
-    flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: '#446E80',
+    flexDirection: "row",
+    shadowColor: "#000000",
+    elevation: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
   },
   image: {
     width: 150,
-    height: '100%',
+    height: 150,
+    aspectRatio: 3 / 2,
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
+
   fixImage: {
     // width: 150,
     // height: 134,
@@ -136,21 +127,17 @@ const styles = StyleSheet.create({
     height: 'auto',
     resizeMode: 'cover',
     borderTopLeftRadius: 18,
-    borderBottomLeftRadius: 18,
+    borderTopRightRadius: 18,
   },
+
   cardContainer: {
     flexShrink: 1,
-    flexDirection: 'row',
-    width: '100%',
-    alignItems: 'center',
   },
   cardDetailsContainer: {
     flexShrink: 1,
-    paddingLeft: 30,
-    borderLeftWidth: 1,
-    height: '100%',
-    borderLeftColor: '#446E80',
+    padding: 12,
   },
+
   cardDetails: {
     color: '#fff',
     marginTop: 20,
