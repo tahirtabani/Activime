@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: '#1C1924',
   },
-
   card: {
     backgroundColor: '#3F3947',
     marginTop: 30,
@@ -123,14 +122,12 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#446E80',
   },
-
   image: {
     width: 150,
     height: '100%',
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
-
   fixImage: {
     // width: 150,
     // height: 134,
@@ -141,14 +138,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
-
   cardContainer: {
     flexShrink: 1,
     flexDirection: 'row',
     width: '100%',
     alignItems: 'center',
   },
-
   cardDetailsContainer: {
     flexShrink: 1,
     paddingLeft: 30,
@@ -156,13 +151,11 @@ const styles = StyleSheet.create({
     height: '100%',
     borderLeftColor: '#446E80',
   },
-
   cardDetails: {
     color: '#fff',
     marginTop: 20,
     marginBottom: 10,
   },
-
   cardTitle: {
     color: '#fff',
     fontSize: 18,
