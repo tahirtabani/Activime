@@ -9,6 +9,7 @@ import ProfileScreen from "./ProfileScreen";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import PostScreen from "./PostScreen";
 import SavedScreen from "./SavedScreen"
+import SearchScreen from "./SearchScreen"
 
 
 const Tab = createBottomTabNavigator();
@@ -102,7 +103,7 @@ const Tabs = () => {
       />
       <Tab.Screen
         name='Search'
-        component={HomeScreen}
+        component={SearchScreen}
         options={{
           tabBarIcon: ({ focused }) => (
             <View
