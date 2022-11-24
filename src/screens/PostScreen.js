@@ -58,26 +58,22 @@ import DatePicker from 'react-native-modern-datepicker';
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
 
-    .min(6, "Too Short!")
-    .max(30, "Too Long!")
-    .required("Please enter a title"),
-  date: Yup.string()
-    .min(9, "Too Short!")
-    .max(9, "Too Long!")
-    .required("Please enter a date"),
-  description: Yup.string()
-    .min(10, "Too Short!")
-    .max(180, "Too Long!")
-    .required("Please enter a description"),
-  imageUrl: Yup.string()
-    .min(5, "Too Short!")
-    .max(80, "Too Long!")
-    .required("Please enter a URL"),
-  area: Yup.string()
-    .min(3, "Too Short!")
-    .max(30, "Too Long!")
-    .required("Please enter an area"),
+    .min(6, 'Too Short!')
+    .max(30, 'Too Long!')
+    .required('Please enter a title'),
 
+  description: Yup.string()
+    .min(10, 'Too Short!')
+    .max(180, 'Too Long!')
+    .required('Please enter a description'),
+  imageUrl: Yup.string()
+    .min(5, 'Too Short!')
+    .max(500)
+    .required('Please enter a URL'),
+  area: Yup.string()
+    .min(3, 'Too Short!')
+    .max(30, 'Too Long!')
+    .required('Please enter an area'),
 });
 const TimeNow = new Date();
 const PostScreen = ({ navigation }) => {
@@ -115,6 +111,7 @@ const PostScreen = ({ navigation }) => {
     // console.log("selectedDate: ", selectedDate.toLocaleDateString());
     hideDatePicker();
   };
+
   useEffect(() => {
     if (chosenLocation.latlng.latitude !== 0) {
       setFinalLocation(chosenLocation);
@@ -303,6 +300,7 @@ const PostScreen = ({ navigation }) => {
                     backgroundColor: '#446E80',
                     color: '#fff',
                   }}
+                  caretHidden={true}
                   placeholderTextColor='#FFFF'
                   onChangeText={handleChange('geopoint')}
                   value={
