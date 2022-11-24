@@ -25,7 +25,7 @@ const ActivityList = () => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const { user, title, description, imageUrl, location, area, time } =
+        const { user, title, description, imageUrl, location, area, time, date } =
           doc.data();
         activities.push({
           id: doc.id,
@@ -36,6 +36,7 @@ const ActivityList = () => {
           location,
           area,
           time,
+          date
         });
         setActivity(activities);
       });
@@ -75,7 +76,7 @@ const ActivityList = () => {
               <View style={styles.cardDetailsContainer}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardDetails}>{item.area}</Text>
-                <Text style={styles.cardDetails}>{item.time}</Text>
+                <Text style={styles.cardDetails}>{item.date}</Text>
               </View>
             </Pressable>
           ) : (
@@ -91,7 +92,8 @@ const ActivityList = () => {
                 <View style={styles.cardDetailsContainer}>
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.time}</Text>
+                  <Text style={styles.cardDetails}>{item.date}</Text>
+                  <Text style={styles.cardDetails}>Hosted by: {item.user}</Text>
                 </View>
               </View>
             </Pressable>
