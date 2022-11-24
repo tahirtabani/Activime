@@ -58,12 +58,24 @@ import DatePicker from "react-native-modern-datepicker";
 const SignupSchema = Yup.object().shape({
   title: Yup.string()
     .min(6, "Too Short!")
-    .max(50, "Too Long!")
+    .max(30, "Too Long!")
     .required("Please enter a title"),
-  // date: Yup.string()
-  //   .min(9, "Too Short!")
-  //   .max(9, "Too Long!")
-  //   .required("Please enter a date"),
+  date: Yup.string()
+    .min(9, "Too Short!")
+    .max(9, "Too Long!")
+    .required("Please enter a date"),
+  description: Yup.string()
+    .min(10, "Too Short!")
+    .max(180, "Too Long!")
+    .required("Please enter a description"),
+  imageUrl: Yup.string()
+    .min(5, "Too Short!")
+    .max(80, "Too Long!")
+    .required("Please enter a URL"),
+  area: Yup.string()
+    .min(3, "Too Short!")
+    .max(30, "Too Long!")
+    .required("Please enter an area"),
 });
 const TimeNow = new Date();
 const PostScreen = ({ navigation }) => {
@@ -233,6 +245,9 @@ const PostScreen = ({ navigation }) => {
                   onChangeText={handleChange("description")}
                   value={values.description}
                 />
+                {errors.title && (
+                  <Text style={styles.errorTxt}>{errors.description}</Text>
+                )}
               </View>
               <View style={styles.inputWrapper}>
                 <TextInput
@@ -242,6 +257,9 @@ const PostScreen = ({ navigation }) => {
                   onChangeText={handleChange("imageUrl")}
                   value={values.imageUrl}
                 />
+                {errors.title && (
+                  <Text style={styles.errorTxt}>{errors.imageUrl}</Text>
+                )}
               </View>
               <View
                 style={{
@@ -257,6 +275,9 @@ const PostScreen = ({ navigation }) => {
                   onChangeText={handleChange("area")}
                   value={values.area}
                 />
+                {errors.title && (
+                  <Text style={styles.errorTxt}>{errors.area}</Text>
+                )}
               </View>
 
               <View
