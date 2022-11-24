@@ -10,25 +10,24 @@ import {
   ScrollView,
   HorizontalScrollView,
   Pressable,
-} from "react-native";
-import React from "react";
-import { getAuth, signOut } from "firebase/auth";
-import Badges from "./Badges";
-import BioPage from "./BioPage";
-import { db } from "../../firebase";
-import ChangeProfilePic from "./ChangeProfilePic";
-import MapComponent from "./MapComponent";
-import MapScreen from "./MapScreen";
-import MapButton from "./MapButton";
-import { useState } from "react";
+} from 'react-native';
+import React from 'react';
+import { getAuth, signOut } from 'firebase/auth';
+import Badges from './Badges';
+import BioPage from './BioPage';
+import { db } from '../../firebase';
+import ChangeProfilePic from './ChangeProfilePic';
+import MapComponent from './MapComponent';
+import MapScreen from './MapScreen';
+import MapButton from './MapButton';
+import { useState } from 'react';
 
 const ProfileScreen = ({ navigation }) => {
   const { currentUser } = getAuth();
   const [mapVisibility, setMapVisibility] = useState(false);
   return (
-    <View style={styles.profileContainer}>
+    <KeyboardAvoidingView behavior='height' style={styles.profileContainer}>
       <View style={styles.headerContainer}>
-        <ChangeProfilePic></ChangeProfilePic>
         <View style={styles.imageContainer}>
           <Image
             source={{ uri: currentUser.photoURL }}
@@ -39,17 +38,19 @@ const ProfileScreen = ({ navigation }) => {
         <View style={styles.profileUsername}>
           <Text
             style={{
-              fontSize: 30,
-              color: "white",
+              position: 'absolute',
+              top: 0,
+              fontSize: 20,
+              color: 'white',
             }}
           >
             {currentUser.displayName}'s Profile
           </Text>
         </View>
       </View>
-      <Badges></Badges>
 
       <View>
+        <Badges></Badges>
         <BioPage user={currentUser.displayName}></BioPage>
       </View>
 
@@ -57,67 +58,67 @@ const ProfileScreen = ({ navigation }) => {
         <TouchableOpacity
           onPress={() => {
             getAuth().signOut();
-            navigation.navigate("LoginScreen");
+            navigation.navigate('LoginScreen');
           }}
           style={styles.button}
         >
           <Text style={styles.buttonText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   profileContainer: {
-    backgroundColor: "#1C1924",
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
+    backgroundColor: '#1C1924',
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
   },
   profileUsername: {
     marginTop: 5,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     width: 100,
 
-    backgroundColor: "#E56262",
+    backgroundColor: '#E56262',
 
     borderRadius: 10,
-    shadowColor: "#000000",
+    shadowColor: '#000000',
   },
   headerContainer: {
-    height: "30%",
+    height: '30%',
   },
 
   buttonText: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
     padding: 5,
   },
   imageContainer: {
-    alignItems: "center",
-    justifyContent: "center",
+    alignItems: 'center',
+    justifyContent: 'center',
     marginTop: 10,
   },
   image: {
     borderRadius: 100,
     borderWidth: 2,
-    borderColor: "#446E80",
-    alignItems: "center",
-    justifyContent: "center",
+    borderColor: '#446E80',
+    alignItems: 'center',
+    justifyContent: 'center',
     width: 120,
     height: 120,
   },
 
   badgeBar: {
-    backgroundColor: "gray",
+    backgroundColor: 'gray',
     height: 100,
-    width: "100%",
+    width: '100%',
   },
 });
 export default ProfileScreen;

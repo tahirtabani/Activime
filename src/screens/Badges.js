@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     marginVertical: 22.5,
     backgroundColor: '#3F3947',
 
-    height: 70,
+    height: 40,
   },
   emojis: {
     paddingHorizontal: 20,
-    fontSize: 50,
+    fontSize: 30,
     justifyContent: 'center',
   },
 });

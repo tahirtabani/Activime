@@ -66,10 +66,10 @@ const SignupSchema = Yup.object().shape({
     .min(10, 'Too Short!')
     .max(180, 'Too Long!')
     .required('Please enter a description'),
-  imageUrl: Yup.string()
-    .min(5, 'Too Short!')
-    .max(500)
-    .required('Please enter a URL'),
+  // imageUrl: Yup.string()
+  //   .min(5, 'Too Short!')
+  //   .max(500)
+  //   .required('Please enter a URL'),
   area: Yup.string()
     .min(3, 'Too Short!')
     .max(30, 'Too Long!')
