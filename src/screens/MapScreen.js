@@ -140,7 +140,6 @@ function MapScreen({
   const onSelectLocation = () => {
     setChosenLocation(selectedLocation);
     setSelectedLocation(meetMarker);
-    console.log("this is selected location", selectedLocation);
   };
 
   // <View style={{ flexDirection : "row" }} >
@@ -181,7 +180,6 @@ function MapScreen({
           <View style={{ flex: 1, flexDirection: "column" }}>
             <View style={{ flex: 1 }} />
 
-            <Text>SCROLL MAP TO CHOOSE MEETING LOCATION </Text>
             <MapComponent
               markers={markers}
               mapRegion={mapRegion}
@@ -192,14 +190,15 @@ function MapScreen({
               title="Select Location"
               color="#841584"
               accessibilityLabel="Select Location on map"
+              style={styles.selectButton}
             />
             <Button
               onPress={() => {
                 setMapVisibility(false);
               }}
               title="Close"
-              color="blue"
               accessibilityLabel="Close map"
+              style={styles.closeButton}
             />
             <View style={{ flex: 1 }} />
           </View>
@@ -229,6 +228,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 30,
     fontWeight: "bold",
+  },
+  selectButton: {
+    borderWidth: 4,
+    borderRadius: 6,
+    backgroundColor: "#271F29",
+    color: "#271F29",
   },
 });
 

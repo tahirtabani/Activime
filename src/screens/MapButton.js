@@ -35,7 +35,7 @@ const MapButton = ({ setChosenLocation }) => {
       <View>
         <FontAwesome
           name="map-marker"
-          size={30}
+          size={35}
           color="#fff"
           style={styles.buttonIcon}
         />

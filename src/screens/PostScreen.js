@@ -9,7 +9,7 @@ import {
   connectFirestoreEmulator,
   GeoPoint,
 } from "firebase/firestore";
-import { firebase } from "@firebase/app";
+import { getAuth } from "firebase/auth";
 import {
   StatusBar,
   StyleSheet,
@@ -75,9 +75,9 @@ const PostScreen = ({ navigation }) => {
   const [chosenLocation, setChosenLocation] = useState({
     latlng: { latitude: 0, longitude: 0 },
   });
-  // const [finalLocation, setFinalLocation] = useState({
-  //   latlng: { latitude: 0, longitude: 0 },
-  // });
+  const [finalLocation, setFinalLocation] = useState({
+    latlng: { latitude: 0, longitude: 0 },
+  });
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -93,6 +93,8 @@ const PostScreen = ({ navigation }) => {
     hideDatePicker();
   };
 
+  console.log(finalLocation, "final location");
+  console.log(chosenLocation, "chosen location");
   const handleConfirmTime = (time) => {
     console.warn("time: ", time);
 
@@ -111,7 +113,6 @@ const PostScreen = ({ navigation }) => {
 
     addDoc(ref, data)
       .then((ref) => {
-        console.log("pls work");
         alert("Activity posted successfully");
         navigation.navigate("Tabs");
       })
@@ -151,6 +152,15 @@ const PostScreen = ({ navigation }) => {
             <View style={styles.formContainer}>
               <Text style={styles.title}> Post an Activity </Text>
               <View style={styles.inputWrapper}>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    style={{ height: 0 }}
+                    placeholder={getAuth().currentUser.displayName}
+                    placeholderTextColor="#FFFF"
+                    onChangeText={handleChange("user")}
+                    value={(values.user = getAuth().currentUser.displayName)}
+                  />
+                </View>
                 <TextInput
                   style={styles.inputStyle}
                   placeholder="Title..."
@@ -233,11 +243,40 @@ const PostScreen = ({ navigation }) => {
                   value={values.imageUrl}
                 />
               </View>
-
-              <View style={styles.inputWrapper}>
+              <View
+                style={{
+                  flexDirection: "column",
+                  width: "85%",
+                  height: "auto",
+                }}
+              >
                 <TextInput
                   style={styles.inputStyle}
-                  placeholder="Location"
+                  placeholder="Area"
+                  placeholderTextColor="#FFFF"
+                  onChangeText={handleChange("area")}
+                  value={values.area}
+                />
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  top: -49,
+                  marginLeft: 302,
+                  height: "auto",
+                  width: 40,
+                }}
+              >
+                <TextInput
+                  style={{
+                    height: 50,
+                    borderColor: "#3F3947",
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    backgroundColor: "#446E80",
+                    color: "#fff",
+                  }}
                   placeholderTextColor="#FFFF"
                   onChangeText={handleChange("geopoint")}
                   value={
@@ -247,10 +286,8 @@ const PostScreen = ({ navigation }) => {
                     ))
                   }
                 />
-                <Pressable onPress={() => {}} style={styles.dateButton}>
-                  <MapButton setChosenLocation={setChosenLocation}>
-                    {console.log("chosen location works", chosenLocation)}
-                  </MapButton>
+                <Pressable style={styles.dateButton}>
+                  <MapButton setChosenLocation={setChosenLocation}></MapButton>
                 </Pressable>
               </View>
 

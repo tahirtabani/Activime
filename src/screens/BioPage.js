@@ -65,6 +65,7 @@ const BioPage = ({ user }) => {
         placeholderTextColor="#FFFF"
         numberOfLines={6}
         textAlignVertical="top"
+        onBlur={() => {}}
       />
       <TouchableOpacity
         style={styles.saveBioButton}
