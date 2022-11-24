@@ -76,7 +76,6 @@ const ActivityList = () => {
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardDetails}>{item.area}</Text>
                 <Text style={styles.cardDetails}>{item.date}</Text>
-                <Text style={styles.cardDetails}>Created by: {item.user}</Text>
               </View>
             </Pressable>
           ) : (
@@ -92,7 +91,8 @@ const ActivityList = () => {
                 <View style={styles.cardDetailsContainer}>
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.time}</Text>
+                  <Text style={styles.cardDetails}>{item.date}</Text>
+                  <Text style={styles.cardDetails}>Created by: {item.user}</Text>
                 </View>
               </View>
             </Pressable>
