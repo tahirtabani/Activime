@@ -7,7 +7,9 @@ import {
   doc,
   snapshot,
   connectFirestoreEmulator,
+  GeoPoint,
 } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import {
   StatusBar,
   StyleSheet,
@@ -20,17 +22,17 @@ import {
   Button,
   Pressable,
 } from "react-native";
-
+import MapButton from "./MapButton";
 // import DateTimePicker from "@react-native-community/datetimepicker";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-import { Formik } from "formik";
+import { Formik, validateYupSchema } from "formik";
 import * as Yup from "yup";
 import { db } from "../../firebase";
 import * as _ from "lodash";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DatePicker from "react-native-modern-datepicker";
 
 // const deleteEmptyMessages = async () => {
@@ -70,6 +72,12 @@ const PostScreen = ({ navigation }) => {
   const [selectedTime, setSelectedTime] = useState(
     TimeNow.toLocaleTimeString()
   );
+  const [chosenLocation, setChosenLocation] = useState({
+    latlng: { latitude: 0, longitude: 0 },
+  });
+  const [finalLocation, setFinalLocation] = useState({
+    latlng: { latitude: 0, longitude: 0 },
+  });
 
   const showDatePicker = () => {
     setDatePickerVisibility(true);
@@ -85,12 +93,19 @@ const PostScreen = ({ navigation }) => {
     hideDatePicker();
   };
 
+  console.log(finalLocation, "final location");
+  console.log(chosenLocation, "chosen location");
   const handleConfirmTime = (time) => {
     console.warn("time: ", time);
 
     // console.log("selectedDate: ", selectedDate.toLocaleDateString());
     hideDatePicker();
   };
+  useEffect(() => {
+    if (chosenLocation.latlng.latitude !== 0) {
+      setFinalLocation(chosenLocation);
+    }
+  }, []);
 
   const AddData = (data) => {
     console.log("data: ", data);
@@ -98,7 +113,6 @@ const PostScreen = ({ navigation }) => {
 
     addDoc(ref, data)
       .then((ref) => {
-        console.log("pls work");
         alert("Activity posted successfully");
         navigation.navigate("Tabs");
       })
@@ -121,7 +135,6 @@ const PostScreen = ({ navigation }) => {
         }}
         validationSchema={SignupSchema}
         onSubmit={(values) => {
-          console.log(values);
           AddData(values);
         }}
       >
@@ -139,6 +152,15 @@ const PostScreen = ({ navigation }) => {
             <View style={styles.formContainer}>
               <Text style={styles.title}> Post an Activity </Text>
               <View style={styles.inputWrapper}>
+                <View style={styles.inputWrapper}>
+                  <TextInput
+                    style={{ height: 0 }}
+                    placeholder={getAuth().currentUser.displayName}
+                    placeholderTextColor="#FFFF"
+                    onChangeText={handleChange("user")}
+                    value={(values.user = getAuth().currentUser.displayName)}
+                  />
+                </View>
                 <TextInput
                   style={styles.inputStyle}
                   placeholder="Title..."
@@ -221,15 +243,52 @@ const PostScreen = ({ navigation }) => {
                   value={values.imageUrl}
                 />
               </View>
-
-              <View style={styles.inputWrapper}>
+              <View
+                style={{
+                  flexDirection: "column",
+                  width: "85%",
+                  height: "auto",
+                }}
+              >
                 <TextInput
                   style={styles.inputStyle}
-                  placeholder="Location"
+                  placeholder="Area"
                   placeholderTextColor="#FFFF"
-                  onChangeText={handleChange("location")}
-                  value={values.location}
+                  onChangeText={handleChange("area")}
+                  value={values.area}
                 />
+              </View>
+
+              <View
+                style={{
+                  flexDirection: "column",
+                  top: -49,
+                  marginLeft: 302,
+                  height: "auto",
+                  width: 40,
+                }}
+              >
+                <TextInput
+                  style={{
+                    height: 50,
+                    borderColor: "#3F3947",
+                    borderWidth: 1,
+                    borderRadius: 10,
+                    backgroundColor: "#446E80",
+                    color: "#fff",
+                  }}
+                  placeholderTextColor="#FFFF"
+                  onChangeText={handleChange("geopoint")}
+                  value={
+                    (values.location = new GeoPoint(
+                      chosenLocation.latlng.latitude,
+                      chosenLocation.latlng.longitude
+                    ))
+                  }
+                />
+                <Pressable style={styles.dateButton}>
+                  <MapButton setChosenLocation={setChosenLocation}></MapButton>
+                </Pressable>
               </View>
 
               <TouchableOpacity

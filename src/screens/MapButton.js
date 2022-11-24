@@ -14,10 +14,10 @@ import {
 
 import MapScreen from "./MapScreen";
 import { useState } from "react";
-
+import { FontAwesome } from "@expo/vector-icons";
 import React from "react";
 
-const MapButton = () => {
+const MapButton = ({ setChosenLocation }) => {
   const [mapVisibility, setMapVisibility] = useState(false);
 
   return (
@@ -29,10 +29,16 @@ const MapButton = () => {
       <MapScreen
         setMapVisibility={setMapVisibility}
         mapVisibility={mapVisibility}
+        setChosenLocation={setChosenLocation}
       ></MapScreen>
 
-      <View style={styles.button}>
-        <Text style={styles.buttonText}>Map</Text>
+      <View>
+        <FontAwesome
+          name="map-marker"
+          size={35}
+          color="#fff"
+          style={styles.buttonIcon}
+        />
       </View>
     </TouchableOpacity>
   );
