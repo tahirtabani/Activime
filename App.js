@@ -28,7 +28,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{ animation: "none" }}>
         <Stack.Group options={{ headerStyle: { backgroundColor: "#1C1924" } }}>
           <Stack.Screen
             name="LoginScreen"
