@@ -106,6 +106,7 @@ const Activity = ({ item, setSelectedId, location }) => {
             <MapScreen
               PostsLocation={location}
               ActivityTitle={item.title}
+              ActivityArea={item.area}
             ></MapScreen>
           </View>
           <View style={styles.descriptionContainer}>

@@ -9,6 +9,7 @@ const SavedMapLocation = ({
   mapRegion,
   onRegionChange,
   ActivityTitle,
+  ActivityArea,
 }) => {
   let testObjCords = {
     latitude: 53.6470502,
@@ -21,7 +22,7 @@ const SavedMapLocation = ({
     {
       latlng: { latitude: 53.6470502, longitude: -2.9664152 },
       title: ActivityTitle,
-      description: "Meet here :)",
+      description: ActivityArea,
     },
   ];
 

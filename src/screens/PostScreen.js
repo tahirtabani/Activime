@@ -281,8 +281,8 @@ const PostScreen = ({ navigation }) => {
                   onChangeText={handleChange("geopoint")}
                   value={
                     (values.location = new GeoPoint(
-                      chosenLocation.latlng.latitude,
-                      chosenLocation.latlng.longitude
+                      finalLocation.latlng.latitude,
+                      finalLocation.latlng.longitude
                     ))
                   }
                 />

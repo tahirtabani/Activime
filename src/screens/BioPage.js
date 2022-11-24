@@ -4,6 +4,8 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Pressable,
+  ScrollView,
 } from "react-native";
 import React from "react";
 import { useState } from "react";
@@ -14,7 +16,20 @@ import KeyboardAvoidingView from "react-native/Libraries/Components/Keyboard/Key
 const BioPage = ({ user }) => {
   const [userBio, setUserBio] = useState("");
   const [currentBio, setCurrentBio] = useState("");
+  const [savedText, setSavedText] = useState(false);
+  const [savedColour, setSavedColour] = useState(false);
   const currentUser = user;
+
+  let savedButtonText = "Save";
+  let savedBackgroundColour = "#446E80";
+
+  const handleChangeButton = () => {
+    if (savedColour === true) {
+      savedButtonText = "Saved ✔️";
+      savedBackgroundColour = "green";
+      setSavedColour(false);
+    }
+  };
 
   const handleUpdatedBio = () => {
     if (userBio !== "") {
@@ -38,6 +53,7 @@ const BioPage = ({ user }) => {
         db.collection("users")
           .doc(currentUser)
           .set({
+            username: currentUser,
             bio: "",
             age: "",
             gender: "",
@@ -67,15 +83,30 @@ const BioPage = ({ user }) => {
         textAlignVertical="top"
         onBlur={() => {}}
       />
-      <TouchableOpacity
-        style={styles.saveBioButton}
-        onPressOut={() => {
+      <Pressable
+        onPress={() => {
           handleUpdatedBio();
+          setSavedColour(true);
+          setSavedText(true);
+          handleChangeButton();
+        }}
+        style={{
+          backgroundColor: savedColour === true ? "#51D093" : "#446E80",
+          width: 130,
+          height: 40,
+          marginVertical: 15,
+          alignItems: "center",
+          justifyContent: "center",
+          color: "white",
+          textAlign: "center",
+          padding: 5,
+          borderRadius: 10,
         }}
       >
-        <Text style={styles.button}>Save Bio</Text>
-      </TouchableOpacity>
-      <View></View>
+        <Text style={{ color: savedColour === true ? "black" : "white" }}>
+          {savedColour === true ? "Saved ✔️" : "Save"}
+        </Text>
+      </Pressable>
     </View>
   );
 };

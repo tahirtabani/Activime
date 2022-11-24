@@ -1,16 +1,16 @@
-import { StyleSheet, Text, View } from 'react-native';
-import React from 'react';
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
 
 const ChangeProfilePic = () => {
   return (
     <View
       style={{
-        justifyContent: 'center',
-        alignItems: 'center',
+        justifyContent: "center",
+        alignItems: "center",
         marginTop: 15,
       }}
     >
-      <Text style={{ color: 'white' }}>Change your avatar?</Text>
+      <Text style={{ color: "skyblue" }}>Change your avatar?</Text>
     </View>
   );
 };
