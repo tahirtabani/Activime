@@ -7,11 +7,11 @@ import {
   Image,
   TouchableOpacity,
   Modal,
-} from "react-native";
-import React, { useState, useEffect } from "react";
-import { db } from "../../firebase";
-import { getAuth } from "firebase/auth";
-import SavedActivity from "./SavedActivity";
+} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { db } from '../../firebase';
+import { getAuth } from 'firebase/auth';
+import SavedActivity from './SavedActivity';
 
 const SavedScreen = () => {
   const [activity, setActivity] = useState([]);
@@ -24,8 +24,16 @@ const SavedScreen = () => {
     activityRef.onSnapshot((querySnapshot) => {
       const activities = [];
       querySnapshot.forEach((doc) => {
-        const { user, title, description, imageUrl, location, area, time } =
-          doc.data();
+        const {
+          user,
+          title,
+          description,
+          imageUrl,
+          location,
+          area,
+          time,
+          date,
+        } = doc.data();
         activities.push({
           id: doc.id,
           user,
@@ -35,6 +43,7 @@ const SavedScreen = () => {
           location,
           area,
           time,
+          date,
         });
         setActivity(activities);
       });
@@ -74,7 +83,8 @@ const SavedScreen = () => {
               <View style={styles.cardDetailsContainer}>
                 <Text style={styles.cardTitle}>{item.title}</Text>
                 <Text style={styles.cardDetails}>{item.area}</Text>
-                <Text style={styles.cardDetails}>{item.time}</Text>
+                <Text style={styles.cardDetails}>{item.date}</Text>
+                <Text style={styles.cardDetails}>Hosted by: {item.user}</Text>
               </View>
             </Pressable>
           ) : (
@@ -90,7 +100,8 @@ const SavedScreen = () => {
                 <View style={styles.cardDetailsContainer}>
                   <Text style={styles.cardTitle}>{item.title}</Text>
                   <Text style={styles.cardDetails}>{item.area}</Text>
-                  <Text style={styles.cardDetails}>{item.time}</Text>
+                  <Text style={styles.cardDetails}>{item.date}</Text>
+                  <Text style={styles.cardDetails}>Hosted by: {item.user}</Text>
                 </View>
               </View>
             </Pressable>
@@ -107,22 +118,22 @@ export default SavedScreen;
 
 const styles = StyleSheet.create({
   list: {
-    backgroundColor: "#1C1924",
+    backgroundColor: '#1C1924',
   },
 
   card: {
-    backgroundColor: "#3F3947",
+    backgroundColor: '#3F3947',
     marginTop: 30,
     marginHorizontal: 10,
     borderRadius: 18,
-    flexDirection: "row",
+    flexDirection: 'row',
     borderWidth: 1,
-    borderColor: "#446E80",
+    borderColor: '#446E80',
   },
 
   image: {
     width: 150,
-    height: "100%",
+    height: '100%',
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
@@ -132,43 +143,43 @@ const styles = StyleSheet.create({
     // height: 134,
     flex: 1,
     width: 150,
-    height: "auto",
-    resizeMode: "cover",
+    height: 'auto',
+    resizeMode: 'cover',
     borderTopLeftRadius: 18,
     borderBottomLeftRadius: 18,
   },
 
   cardContainer: {
     flexShrink: 1,
-    flexDirection: "row",
-    width: "100%",
-    alignItems: "center",
+    flexDirection: 'row',
+    width: '100%',
+    alignItems: 'center',
   },
 
   cardDetailsContainer: {
     flexShrink: 1,
     paddingLeft: 30,
     borderLeftWidth: 1,
-    height: "100%",
-    borderLeftColor: "#446E80",
+    height: '100%',
+    borderLeftColor: '#446E80',
   },
 
   cardDetails: {
-    color: "#fff",
+    color: '#fff',
     marginTop: 20,
     marginBottom: 10,
   },
 
   cardTitle: {
-    color: "#fff",
+    color: '#fff',
     fontSize: 18,
     marginTop: 10,
-    justifyContent: "center",
-    flexWrap: "wrap",
+    justifyContent: 'center',
+    flexWrap: 'wrap',
   },
 
   flatListContainer: {
-    height: "100%",
+    height: '100%',
   },
 });
 
